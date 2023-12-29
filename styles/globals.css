@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #8accbd;
+  --secondary: #ebce51;
+  --accent: #a04659;
+  --background: #071f21;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: var(--secondary);
+    margin: 10px 0;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: var(--background);
+    border-radius: 100vh;
+    border: 3px solid var(--secondary);
+  }
+  .checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--primary);
+    width: 16px;
+    height: 16px;
+    padding: 12px 13px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .checkbox::after {
+    content: '\2713';
+    font-weight: 900;
+    font-size: 20px;
+    display: none;
+  }
+  .checkbox:checked::after {
+    display: block;
+  }
+}
