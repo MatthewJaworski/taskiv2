@@ -43,6 +43,7 @@ const NewProject: React.FC<NewProjectProps> = () => {
             placeholder={placeholders.name}
             type="text"
             title="Name"
+            error={false}
           />
           <Input
             id="description"
@@ -50,6 +51,7 @@ const NewProject: React.FC<NewProjectProps> = () => {
             placeholder={placeholders.description}
             type="text"
             title="Description"
+            error={false}
           />
         </div>
         <div className="mt-6">

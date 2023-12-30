@@ -8,11 +8,18 @@ interface FetcherProps {
   json?: boolean;
   token?: string;
 }
-const fetcher = async ({ url, method, body, json = true }: FetcherProps) => {
+const fetcher = async ({
+  url,
+  method,
+  body,
+  token,
+  json = true,
+}: FetcherProps) => {
   const headers: Record<string, string> = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
 
   const res = await fetch(`http://localhost:3000${url}`, {
     method,
@@ -54,10 +61,11 @@ export const getProject = (id: string) => {
     method: 'GET',
   });
 };
-export const getAllUserProjects = (userId: string) => {
+export const getAllUserProjects = (userId: string, token: string) => {
   return fetcher({
     url: `/api/project/user/${userId}`,
     method: 'GET',
+    token: token,
   });
 };
 export const createNewProject = (data: Omit<CreateProjectDto, 'userId'>) => {

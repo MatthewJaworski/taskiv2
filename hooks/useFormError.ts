@@ -15,7 +15,6 @@ export const useFormError = <T>(fields:T) => {
   for (const key in fields) {
     initialState[key] = { error: false, message: '' };
   }
-  console.log(initialState);
   const [errorState, errorDispatch] = useReducer(errorReducer, initialState);
 
   return [errorState, errorDispatch] as const;

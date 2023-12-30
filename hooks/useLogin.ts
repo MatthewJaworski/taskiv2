@@ -33,7 +33,6 @@ export const useLogin = () => {
     });
 
     const response = await loginUser(requestBody);
-    console.log(response, 'response');
 
     if (response.errors) {
       for (const field in response.errors) {
