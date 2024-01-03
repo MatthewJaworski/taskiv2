@@ -55,10 +55,11 @@ export const loginUser = (data: TLoginDto) => {
   });
 };
 
-export const getProject = (id: string) => {
+export const getProject = (id: string,token:string) => {
   return fetcher({
     url: `/api/project/${id}`,
     method: 'GET',
+    token:token
   });
 };
 export const getAllUserProjects = (userId: string, token: string) => {
@@ -68,11 +69,15 @@ export const getAllUserProjects = (userId: string, token: string) => {
     token: token,
   });
 };
-export const createNewProject = (data: Omit<CreateProjectDto, 'userId'>) => {
+export const createNewProject = (
+  data: Omit<CreateProjectDto, 'userId'>,
+  token: string
+) => {
   return fetcher({
     url: `/api/project`,
     method: 'POST',
     body: data,
+    token,
   });
 };
 export const updateProject = (id: string, data: UpdateProjectDto) => {
@@ -82,10 +87,11 @@ export const updateProject = (id: string, data: UpdateProjectDto) => {
     body: data,
   });
 };
-export const deleteProject = (id: string) => {
+export const deleteProject = (id: string, token: string) => {
   return fetcher({
     url: `/api/project/${id}`,
     method: 'DELETE',
+    token,
   });
 };
 

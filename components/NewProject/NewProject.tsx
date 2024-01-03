@@ -1,34 +1,51 @@
+'use client';
+import revalidateAllProjects from '@/actions/revalidateProjects';
 import { text } from '@/constants/en';
 import { KEY_TAGS } from '@/constants/tags';
 import { createNewProject } from '@/lib/api';
 import { IprojectRequestBody } from '@/types/project';
+import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
-export interface NewProjectProps {}
 
-const NewProject: React.FC<NewProjectProps> = () => {
+export interface NewProjectProps {
+  token: string;
+  userId: string;
+}
+
+const NewProject: React.FC<NewProjectProps> = ({ token, userId }) => {
   const {
     newProject: { addButton, title, placeholders },
   } = text;
+  const router = useRouter();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const requestBody: IprojectRequestBody = {
-      backend: '',
-      frontend: '',
       description: '',
       name: '',
-      uxDesign: '',
-      websiteDesign: '',
+      tags: [],
+      userId: userId,
     };
     formData.forEach((value, key) => {
-      if (typeof value === 'string') {
-        requestBody[key as keyof IprojectRequestBody] = value;
+      if (key === 'description' || key === 'name') {
+        requestBody[key as Exclude<keyof IprojectRequestBody, 'tags'>] =
+          value as string;
+      } else {
+        const foundTag = KEY_TAGS.find((tag) => tag.key === key);
+        if (foundTag) {
+          requestBody.tags.push(foundTag.name);
+        }
       }
     });
-    await createNewProject(requestBody);
+    const response = await createNewProject(requestBody, token);
+
+    if (response.success) {
+      revalidateAllProjects();
+      router.push('/overview ');
+    }
   };
 
   return (

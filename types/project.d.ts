@@ -1,10 +1,10 @@
+import { TTagKeys } from './tag';
+
 export interface IprojectRequestBody {
   name: string;
   description: string;
-  backend: string;
-  websiteDesign: string;
-  uxDesign: string;
-  frontend: string;
+  tags: TTagKeys[];
+  userId: string;
 }
 
 export type TProjectKeys = keyof IprojectRequestBody;

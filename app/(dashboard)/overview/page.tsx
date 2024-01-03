@@ -5,7 +5,6 @@ import { getAllUserProjects } from '@/lib/api';
 import { getJWTFromCookie, getUserIdFromCookie } from '@/lib/auth';
 import Link from 'next/link';
 
-
 const Home = async () => {
   const userId = await getUserIdFromCookie();
   const token = await getJWTFromCookie();
@@ -24,6 +23,8 @@ const Home = async () => {
               key={project.id}
               name={project.name}
               description={project.description}
+              id={project.id}
+              token={token}
             />
           ))}
         </Container>

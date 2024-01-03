@@ -15,7 +15,7 @@ export interface SidebarProps {}
 const Sidebar: React.FC<SidebarProps> = () => {
   const [isOpen, setIsOpen] = useState(true);
   const classes = isOpen
-    ? ' max-w-[300px] justify-between bg-black/20 shadow-lg  px-6 py-10'
+    ? ' max-w-[300px] justify-between bg-black/20  px-6 py-10'
     : 'max-w-[0px]  justify-center items-center';
   const sidebarLinks = [
     { icon: Globe, text: 'Overview', href: '/overview' },

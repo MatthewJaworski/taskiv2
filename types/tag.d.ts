@@ -6,3 +6,4 @@ const {
 
 export type TTags = typeof tags;
 export type TTag = TKeyName<TTags>;
+export type TTagKeys =  TTag['name'];
