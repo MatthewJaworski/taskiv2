@@ -1,3 +1,5 @@
+import { TTagKeys } from "./tag";
+import { TStoryPriority } from "./priority";
 export type Stroy = {
   id: string;
   projectId: string;
@@ -15,10 +17,12 @@ export type CreateStoryDto = {
   projectId: string;
   createdBy: string;
   name: string;
-  assignedTo?: string;
+  assignedTo?: string | null;
   description?: string;
   storyPoints: number;
-  priority: 0 | 1 | 2;
+  tag?: TTagKeys | null;
+  priority?: TStoryPriority;
+
 }
 
 export type UpdateStoryDto = {

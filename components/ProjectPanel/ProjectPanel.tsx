@@ -1,4 +1,5 @@
 'use client';
+
 import revalidateAllProjects from '@/actions/revalidateProjects';
 import { deleteProject } from '@/lib/api';
 import { formatDate } from '@/lib/time';
@@ -14,9 +15,15 @@ interface ProjectPanelProps {
   token: string;
   id: string;
   projectData: TProject;
+  userId: string;
 }
 
-const ProjectPanel = ({ token, id, projectData }: ProjectPanelProps) => {
+const ProjectPanel = ({
+  token,
+  id,
+  projectData,
+  userId,
+}: ProjectPanelProps) => {
   const router = useRouter();
   const deleteHandler = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -59,7 +66,12 @@ const ProjectPanel = ({ token, id, projectData }: ProjectPanelProps) => {
           </ul>
         </Container>
 
-        <NewTask tags={projectData.tags} />
+        <NewTask
+          userId={projectData.userId}
+          tags={projectData.tags}
+          projectId={projectData.id}
+          users={projectData.users}
+        />
         <Button onClick={deleteHandler} className="mt-4 w-full" intent="text">
           Delete project
         </Button>

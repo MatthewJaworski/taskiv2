@@ -2,7 +2,10 @@
 
 import { storyPriority } from '@/constants/storyPriority';
 import { mapTagKeysToOptions } from '@/lib/tags';
+import { mapUsersToOptions } from '@/lib/user';
+import { CreateStoryDto } from '@/types/story';
 import { TTagKeys } from '@/types/tag';
+import { TUser } from '@/types/user';
 import { FormEvent } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
@@ -10,12 +13,42 @@ import Select from '../Select/Select';
 
 export interface NewTaskProps {
   tags?: TTagKeys[];
+  users?: TUser[];
+  userId: string;
+  projectId: string;
 }
 
-const NewTask: React.FC<NewTaskProps> = ({ tags }) => {
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {};
+const NewTask: React.FC<NewTaskProps> = ({
+  tags,
+  users,
+  userId,
+  projectId,
+}) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const requestBody: CreateStoryDto = {
+      description: '',
+      name: '',
+      tag: null,
+      createdBy: userId,
+      assignedTo: null,
+      priority: '',
+      storyPoints: 0,
+      projectId,
+    };
+    formData.forEach((value: FormDataEntryValue, key: string) => {
+      if (key !== 'storyPoints' && typeof value === 'string') {
+        requestBody[key as Exclude<keyof CreateStoryDto, 'storyPoints'>] =
+          value;
+      }
+      requestBody.storyPoints = parseInt(formData.get('storyPoints') as string);
+    });
+    console.log(requestBody);
+  };
 
   const tagOptions = mapTagKeysToOptions(tags);
+  const userOptions = mapUsersToOptions(users);
 
   const storyPoints = [
     { value: '1', label: '1' },
@@ -47,12 +80,8 @@ const NewTask: React.FC<NewTaskProps> = ({ tags }) => {
             error={false}
           />
           <Select id="tag" name="Tag" options={tagOptions} />
-          <Select id="assignTo" name="Assign to" />
-          <Select
-            id="storyPriority"
-            options={storyPriority}
-            name="Story priority"
-          />
+          <Select id="assignedTo" name="Assign to" options={userOptions} />
+          <Select id="priority" options={storyPriority} name="Story priority" />
           <Select id="storyPoints" name="Story points" options={storyPoints} />
 
           <Button type="submit" intent="secondary" className="w-full mt-7">

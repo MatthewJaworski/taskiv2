@@ -101,10 +101,11 @@ export const getStory = (id: string) => {
     method: 'GET',
   });
 };
-export const getAllProjectStories = (projectId: string) => {
+export const getAllProjectStories = (projectId: string,token:string) => {
   return fetcher({
     url: `/api/story/project/${projectId}`,
     method: 'GET',
+    token
   });
 };
 export const createStory = (data: CreateStoryDto) => {
