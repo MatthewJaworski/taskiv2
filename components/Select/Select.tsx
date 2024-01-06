@@ -1,9 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import React from 'react';
-import Selektor, { StylesConfig } from 'react-select';
+import React, { Ref } from 'react';
+import Selektor, { GroupBase, StylesConfig } from 'react-select';
 
 export interface OptionType {
-  value: string;
+  value: number | string;
   label: string;
 }
 
@@ -31,6 +31,7 @@ interface SelectProps extends VariantProps<typeof wrapperClasses> {
   variant?: 'primary' | 'secondary';
   name: string;
   id: string;
+  ref?: Ref<any>;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -41,6 +42,7 @@ const Select: React.FC<SelectProps> = ({
   id,
   labelPosition,
   variant = 'primary',
+  ref,
 }) => {
   const customStyles: StylesConfig<OptionType, false> = {
     control: (base: any, state: any) => ({
@@ -110,6 +112,7 @@ const Select: React.FC<SelectProps> = ({
         styles={customStyles}
         name={id}
         id={id}
+        ref={ref}        
       />
     </div>
   );

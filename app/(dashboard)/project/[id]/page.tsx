@@ -15,8 +15,9 @@ const ProjectPage: NextPage<ProjectPageProps> = async ({ params: { id } }) => {
   const userId = (await getUserIdFromCookie()) as string;
 
   const data = (await getProject(id, token)) as TProject;
+  const { stories } = data;
   return (
-    <ProjectPanel token={token} userId={userId} id={id} projectData={data} />
+    <ProjectPanel token={token} userId={userId} id={id} projectData={data} stories={stories} />
   );
 };
 

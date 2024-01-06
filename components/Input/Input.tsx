@@ -1,4 +1,5 @@
 import { cva, VariantProps } from 'class-variance-authority';
+import { forwardRef } from 'react';
 
 const inputClasses = cva(
   [
@@ -64,30 +65,27 @@ export interface InputProps
   error?: boolean;
   errorMessage?: string;
 }
-const Input: React.FC<InputProps> = ({
-  name,
-  type,
-  className,
-  id,
-  labelPosition,
-  error,
-  errorMessage,
-  ...props
-}) => {
-  return (
-    <div className={wrapperClasses({ labelPosition, error })}>
-      <label className="text-sm m-1 font-semibold" htmlFor={id}>
-        {name}
-      </label>
-      <input
-        name={id}
-        className={inputClasses({ type, className, error })}
-        type={type}
-        id={id}
-        {...props}
-      />
-      {error && <p className="text-secondary">{errorMessage}</p>}
-    </div>
-  );
-};
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    { name, type, className, id, labelPosition, error, errorMessage, ...props },
+    ref
+  ) => {
+    return (
+      <div className={wrapperClasses({ labelPosition, error })}>
+        <label className="text-sm m-1 font-semibold" htmlFor={id}>
+          {name}
+        </label>
+        <input
+          name={id}
+          className={inputClasses({ type, className, error })}
+          type={type}
+          id={id}
+          ref={ref}
+          {...props}
+        />
+        {error && <p className="text-secondary">{errorMessage}</p>}
+      </div>
+    );
+  }
+);
 export default Input;

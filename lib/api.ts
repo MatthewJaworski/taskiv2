@@ -108,11 +108,12 @@ export const getAllProjectStories = (projectId: string,token:string) => {
     token
   });
 };
-export const createStory = (data: CreateStoryDto) => {
+export const createStory = (data: CreateStoryDto, token:string) => {
   return fetcher({
     url: `/api/story`,
     method: 'POST',
     body: data,
+    token
   });
 };
 export const updateStory = (id: string, data: UpdateStoryDto) => {

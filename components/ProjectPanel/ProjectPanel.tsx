@@ -1,39 +1,29 @@
 'use client';
 
-import revalidateAllProjects from '@/actions/revalidateProjects';
-import { deleteProject } from '@/lib/api';
+import {useDeleteProject} from '@/hooks/useDeleteProject';
 import { formatDate } from '@/lib/time';
 import { TProject } from '@/types/projects';
-import { useRouter } from 'next/navigation';
-import React from 'react';
+import { Story } from '@/types/story';
+import AllStoryList from '../AllStoryList/AllStoryList';
 import Button from '../Button/Button';
 import Container from '../Container/Container';
 import NewTask from '../NewTask/NewTask';
-import StoryListElement from '../StoryListElement/StoryListElement';
 
 interface ProjectPanelProps {
   token: string;
   id: string;
   projectData: TProject;
   userId: string;
+  stories: Story[];
 }
 
 const ProjectPanel = ({
   token,
   id,
   projectData,
-  userId,
+  stories,
 }: ProjectPanelProps) => {
-  const router = useRouter();
-  const deleteHandler = async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-
-    const reponse = await deleteProject(id, token);
-    if (reponse.success) {
-      revalidateAllProjects();
-      router.push('/overview');
-    }
-  };
+  const deleteHandler = useDeleteProject(id, token);
 
   return (
     <>
@@ -57,16 +47,10 @@ const ProjectPanel = ({
         </Container>
 
         <p className="text-xl font-semibold mt-4 max-w-lg">Stories</p>
-        <Container>
-          <ul className="flex flex-col gap-2">
-            <StoryListElement assignedTo="daniel" name="magikal" />
-            <StoryListElement assignedTo="daniel" name="magikal" />
-            <StoryListElement assignedTo="daniel" name="magikal" />
-            <StoryListElement assignedTo="daniel" name="magikal" />
-          </ul>
-        </Container>
+        <AllStoryList stories={stories} projectData={projectData} />
 
         <NewTask
+          token={token}
           userId={projectData.userId}
           tags={projectData.tags}
           projectId={projectData.id}

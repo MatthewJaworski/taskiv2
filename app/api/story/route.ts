@@ -8,8 +8,12 @@ export async function POST(request: NextRequest) {
   const headersList = headers();
   const authorization = headersList.get('Authorization');
 
+  const requestBody= Object.fromEntries(
+    Object.entries(body).filter(([key, value]) => value !== "")
+  );
+
   const result = await fetch(`http://localhost:5025/api/stories`, {
-    body: JSON.stringify(body),
+    body: JSON.stringify(requestBody),
     method: 'POST',
     headers: {
       'Content-Type': contentType,
@@ -19,7 +23,7 @@ export async function POST(request: NextRequest) {
     next: { tags: ['allTasks'] },
   });
   console.log(result, 'result.status');
-  console.log(JSON.stringify(body), 'body');
+  console.log(JSON.stringify(requestBody), 'body');
   const data = await result.json();
   return new Response(JSON.stringify(data), {
     status: 201,

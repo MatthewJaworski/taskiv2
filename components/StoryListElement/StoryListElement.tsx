@@ -8,12 +8,15 @@ interface StoryListElementProps {
 const StoryListElement = ({ name, assignedTo }: StoryListElementProps) => {
   return (
     <Container
-      className="flex justify-around items-center"
+      className="grid grid-cols-3 gap-4 items-center"
       intent={'secondary'}
     >
       <p>{name}</p>
       <p>Assigned to: {assignedTo}</p>
-      <Button className='px-10' size="medium">Open</Button>
+
+      <Button className="px-10" size="medium">
+        Open
+      </Button>
     </Container>
   );
 };

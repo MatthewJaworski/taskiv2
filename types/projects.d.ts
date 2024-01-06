@@ -1,3 +1,4 @@
+import { TStory } from './story';
 import { TTagKeys } from './tags';
 import { TUser } from './user';
 
@@ -14,6 +15,7 @@ export type TProject = {
   createDate: string;
   tags: TTagKeys[];
   users: TUser[];
+  stories: TStory[];
 };
 export type UpdateProjectDto = {
   name: string;

@@ -15,6 +15,7 @@ export async function GET(
       headers: {
         Authorization: authorization || '',
       },
+      next: { tags: ['allStories'] },
     }
   );
     

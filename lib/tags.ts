@@ -6,7 +6,7 @@ export function mapTagKeysToOptions(
   if (!tagKeys) return [];
 
   return tagKeys.map((tagKey) => {
-    const value = tagKey.replace(/\s+/g, '').toLowerCase();
+    const value = tagKey;
     const label = tagKey;
     return { value, label };
   });
