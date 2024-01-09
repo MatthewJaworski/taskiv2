@@ -1,8 +1,8 @@
 import { TCommentRequest } from '@/types/comment';
 import { headers } from 'next/headers';
-import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
-export async function POST(request: NextResponse) {
+export async function POST(request: NextRequest) {
   const contentType = headers().get('Content-Type') as string;
   const accept = headers().get('Accept') as string;
   const body = (await request.json()) as TCommentRequest;
@@ -27,7 +27,7 @@ export async function POST(request: NextResponse) {
     }
   );
   console.log(result, 'result.status');
-  console.log('hcuuu', JSON.stringify(body));
+  console.log('l', JSON.stringify(body));
   const data = await result.json();
   return new Response(JSON.stringify(data), {
     status: 201,
