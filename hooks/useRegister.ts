@@ -3,6 +3,8 @@ import { TRegisterUserDto } from '@/types/auth';
 import { TRegisterFieldObject, TRegisterFields } from '@/types/register';
 import { useRouter } from 'next/navigation';
 import { useFormError } from './useFormError';
+import { TResponse } from '@/types/response';
+import { TErrors } from '@/types/utility';
 
 export const useRegister = () => {
   const registerInputFields: TRegisterFieldObject = {
@@ -35,7 +37,7 @@ export const useRegister = () => {
     formData.forEach((value, key) => {
       requestBody[key as keyof TRegisterUserDto] = value as string;
     });
-    const response = await registerUser(requestBody);
+    const response = await registerUser(requestBody) as TResponse & TErrors;
     if (response.errors) {
       for (const field in response.errors) {
         errorDispatch({

@@ -14,6 +14,7 @@ export type TStory = {
   storyPoints: number;
   priority: 0 | 1 | 2;
   tag?: TTagDto;
+  comments?: TComment[];
 };
 export type CreateStoryDto = {
   projectId: string;

@@ -1,5 +1,6 @@
 import revalidateStoriesForProject from '@/actions/revalidateStoriesForProject';
 import { createStory } from '@/lib/api';
+import { TResponse } from '@/types/response';
 import { CreateStoryDto, TStoryPriority } from '@/types/story';
 import { FormEvent, useRef } from 'react';
 
@@ -11,7 +12,6 @@ interface IUseAddStory {
 export const useAddStory = ({ userId, projectId, token }: IUseAddStory) => {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
-  
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,7 +37,8 @@ export const useAddStory = ({ userId, projectId, token }: IUseAddStory) => {
         formData.get('priority') as string
       ) as TStoryPriority;
     });
-    const response = await createStory(requestBody, token);
+    const response = (await createStory(requestBody, token)) as TResponse;
+
     if (response.success) {
       revalidateStoriesForProject();
       if (nameRef.current) nameRef.current.value = '';

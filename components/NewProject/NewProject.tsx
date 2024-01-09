@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import { TResponse } from '@/types/response';
 
 export interface NewProjectProps {
   token: string;
@@ -40,7 +41,7 @@ const NewProject: React.FC<NewProjectProps> = ({ token, userId }) => {
         }
       }
     });
-    const response = await createNewProject(requestBody, token);
+    const response = await createNewProject(requestBody, token) as TResponse;
 
     if (response.success) {
       revalidateAllProjects();

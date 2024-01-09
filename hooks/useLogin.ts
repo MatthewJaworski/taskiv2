@@ -4,7 +4,8 @@ import { useFormError } from './useFormError';
 
 import { TLoginDto } from '@/types/auth';
 import { TLoginFieldObject, TLoginFields } from '@/types/login';
-
+import { TResponse } from '@/types/response';
+import { TErrors } from '@/types/utility';
 export const useLogin = () => {
   const loginInputFields: TLoginFieldObject = {
     Email: '',
@@ -32,7 +33,7 @@ export const useLogin = () => {
       }
     });
 
-    const response = await loginUser(requestBody);
+    const response = await loginUser(requestBody) as TResponse & TErrors;
 
     if (response.errors) {
       for (const field in response.errors) {
@@ -49,36 +50,5 @@ export const useLogin = () => {
   return [handleSubmit, errorState, errorDispatch] as const;
 };
 
-// const useLogin = (): [
-//   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>,
-//   boolean,
-// ] => {
-//   const [error, setError] = useState(false);
-//   const router = useRouter();
-
-//   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-//     setError(false);
-//     e.preventDefault();
-//     const formData = new FormData(e.currentTarget);
-//     const requestBody: TLoginDto = { email: '', password: '' };
-
-//     formData.forEach((value, key) => {
-//       if (typeof value === 'string') {
-//         requestBody[key as TLoginKeys] = value;
-//       }
-//     });
-
-//     const response = await loginUser(requestBody);
-
-//     if (response.error) {
-//       setError(true);
-//     }
-//     if (response.success) {
-//       router.push('/home');
-//     }
-//   };
-
-//   return [handleSubmit, error];
-// };
 
 export default useLogin;

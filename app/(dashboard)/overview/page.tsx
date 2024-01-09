@@ -8,10 +8,10 @@ import Link from 'next/link';
 const Home = async () => {
   const userId = await getUserIdFromCookie();
   const token = await getJWTFromCookie();
-  const { projects } = await getAllUserProjects(
+  const { projects  } = await getAllUserProjects(
     userId as string,
     token as string
-  );
+  ) as any;
 
   return (
     <Container>

@@ -1,5 +1,6 @@
 import { OptionType } from '@/components/Select/Select';
 import { TLoginDto, TRegisterUserDto } from '@/types/auth';
+import { TCommentRequest } from '@/types/comment';
 import { CreateProjectDto, UpdateProjectDto } from '@/types/projects';
 import { CreateStoryDto, UpdateStoryDto } from '@/types/story';
 import { TUserToProject } from '@/types/user';
@@ -179,6 +180,14 @@ export const removeUserFromProject = ({data,token}:{data:TUserToProject,token:st
   return fetcher({
     url:`/api/user/project`,
     method:'DELETE',
+    token,
+    body:data
+  })
+}
+export const addComment = ({data,token}:{data:TCommentRequest,token:string})=>{
+  return fetcher({
+    url:`/api/comment`,
+    method:'POST',
     token,
     body:data
   })
