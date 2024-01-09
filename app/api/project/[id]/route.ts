@@ -35,7 +35,7 @@ export async function GET(
     },
   });
   const data = await result.json();
-  console.log(data, 'data');
+  // console.log(data, 'data');
   return new Response(JSON.stringify(data), {
     status: 200,
   });

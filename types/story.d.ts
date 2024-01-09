@@ -1,17 +1,19 @@
-import { TTagKeys } from './tag';
+import { TTagDto, TTagKeys } from './tag';
+import { TUser } from './user';
 
-export type Story = {
+export type TStory = {
   id: string;
   projectId: string;
-  createdBy: string;
-  assignedTo: string;
+  createdBy: TUser;
+  assignedTo: TUser;
   name: string;
   description?: string;
-  createdDate: string;
-  completedDate?: string | null;
-  isCompleted: boolean;
+  createDate: string;
+  completeDate?: string | null;
+  isComplete: boolean;
   storyPoints: number;
   priority: 0 | 1 | 2;
+  tag?: TTagDto;
 };
 export type CreateStoryDto = {
   projectId: string;
@@ -25,13 +27,18 @@ export type CreateStoryDto = {
 };
 
 export type UpdateStoryDto = {
-  name?: string;
+  id: string;
+  projectId: string;
+  createdBy: TUser;
+  assignedTo: TUser;
+  name: string;
   description?: string;
-  assignedTo?: string;
-  storyPoints?: number;
-  priority?: 0 | 1 | 2;
-  isCompleted?: boolean;
-  completedDate?: string;
+  createDate: string;
+  completeDate?: string | null;
+  isComplete: boolean;
+  storyPoints: number;
+  priority: 0 | 1 | 2;
+  tag?: TTagDto;
 };
 
 export type TStoryPriority = 0 | 1 | 2 | 3;

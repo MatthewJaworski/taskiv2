@@ -32,8 +32,8 @@ const NewTask: React.FC<NewTaskProps> = ({
 
   return (
     <>
-      <p className="text-xl font-semibold mt-4 max-w-lg">Create task</p>
       <form onSubmit={handleSubmit}>
+        <p className="text-xl font-semibold max-w-lg">Create task</p>
         <div className="flex flex-col gap-6">
           <Input
             required

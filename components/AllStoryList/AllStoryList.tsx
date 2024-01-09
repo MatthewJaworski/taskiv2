@@ -1,10 +1,10 @@
 import { TProject } from '@/types/projects';
-import { Story } from '@/types/story';
+import { TStory } from '@/types/story';
 import Container from '../Container/Container';
 import StoryListElement from '../StoryListElement/StoryListElement';
 
 interface AllStoryListProps {
-  stories: Story[];
+  stories: TStory[];
   projectData: TProject;
 }
 const AllStoryList = ({ stories, projectData }: AllStoryListProps) => {
@@ -13,13 +13,14 @@ const AllStoryList = ({ stories, projectData }: AllStoryListProps) => {
       <ul className="flex flex-col gap-2">
         {stories.map((story) => {
           const assignedTo =
-            projectData.users.find((user) => user.id === story.assignedTo)
+            projectData.users.find((user) => user.id === story.assignedTo?.id)
               ?.name || '';
           return (
             <StoryListElement
               key={story.id}
               assignedTo={assignedTo}
               name={story.name}
+              id={story.id}
             />
           );
         })}

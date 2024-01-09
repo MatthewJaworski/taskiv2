@@ -18,3 +18,6 @@ export const getUserIdFromCookie = async () => {
   const { id } = await decodeJWT(jwt);
   return id;
 };
+export const getTokenFromAuthrorizationHeader = (authorization: string) => {
+  return authorization.split(' ')[1];
+};

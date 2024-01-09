@@ -1,6 +1,8 @@
+import { OptionType } from '@/components/Select/Select';
 import { TLoginDto, TRegisterUserDto } from '@/types/auth';
 import { CreateProjectDto, UpdateProjectDto } from '@/types/projects';
 import { CreateStoryDto, UpdateStoryDto } from '@/types/story';
+import { TUserToProject } from '@/types/user';
 interface FetcherProps {
   url: string;
   method: string;
@@ -8,7 +10,7 @@ interface FetcherProps {
   json?: boolean;
   token?: string;
 }
-const fetcher = async ({
+const fetcher = async <T>({
   url,
   method,
   body,
@@ -35,7 +37,7 @@ const fetcher = async ({
 
   if (json) {
     const data = await res.json();
-    return data;
+    return data as T;
   }
 };
 
@@ -55,11 +57,11 @@ export const loginUser = (data: TLoginDto) => {
   });
 };
 
-export const getProject = (id: string,token:string) => {
+export const getProject = (id: string, token: string) => {
   return fetcher({
     url: `/api/project/${id}`,
     method: 'GET',
-    token:token
+    token: token,
   });
 };
 export const getAllUserProjects = (userId: string, token: string) => {
@@ -95,32 +97,38 @@ export const deleteProject = (id: string, token: string) => {
   });
 };
 
-export const getStory = (id: string) => {
+export const getStory = (id: string, token: string) => {
   return fetcher({
     url: `/api/story/${id}`,
     method: 'GET',
+    token,
   });
 };
-export const getAllProjectStories = (projectId: string,token:string) => {
+export const getAllProjectStories = (projectId: string, token: string) => {
   return fetcher({
     url: `/api/story/project/${projectId}`,
     method: 'GET',
-    token
+    token,
   });
 };
-export const createStory = (data: CreateStoryDto, token:string) => {
+export const createStory = (data: CreateStoryDto, token: string) => {
   return fetcher({
     url: `/api/story`,
     method: 'POST',
     body: data,
-    token
+    token,
   });
 };
-export const updateStory = (id: string, data: UpdateStoryDto) => {
+export const updateStory = (
+  id: string,
+  data: UpdateStoryDto,
+  token: string
+) => {
   return fetcher({
     url: `/api/story/${id}`,
     method: 'PUT',
     body: data,
+    token,
   });
 };
 export const deleteStory = (id: string) => {
@@ -129,3 +137,49 @@ export const deleteStory = (id: string) => {
     method: 'DELETE',
   });
 };
+export const filterUsersForProject = ({
+  id,
+  name,
+  token,
+}: {
+  id: string;
+  name: string;
+  token: string;
+}) => {
+  return fetcher<OptionType[]>({
+    url: `/api/project/${id}/users?name=${name}`,
+    method: 'GET',
+    token,
+  });
+};
+export const filterUsers = ({
+  name,
+  token,
+}: {
+  name: string;
+  token: string;
+}) => {
+  return fetcher<OptionType[]>({
+    url: `/api/user?name=${name}`,
+    method: 'GET',
+    token
+  });
+};
+
+export const addUserToProject = ({data,token}:{data:TUserToProject,token:string})=>{
+  return fetcher({
+    url:`/api/user/project`,
+    method:'POST',
+    token,
+    body:data
+  })
+}
+
+export const removeUserFromProject = ({data,token}:{data:TUserToProject,token:string})=>{
+  return fetcher({
+    url:`/api/user/project`,
+    method:'DELETE',
+    token,
+    body:data
+  })
+}

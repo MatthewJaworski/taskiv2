@@ -1,7 +1,8 @@
 'use client';
 import { VariantProps, cva } from 'class-variance-authority';
 import React, { Ref } from 'react';
-import Selektor, { StylesConfig } from 'react-select';
+import { StylesConfig } from 'react-select';
+import AsyncSelect from 'react-select/async';
 
 export interface OptionType {
   value: number | string | boolean;
@@ -33,9 +34,15 @@ interface SelectProps extends VariantProps<typeof wrapperClasses> {
   name: string;
   id: string;
   ref?: Ref<any>;
+  promiseOptions?: (inputValue: string) => Promise<OptionType[]>;
 }
+const NoOptionsMessage = () => <div className="w-full text-center">Not found</div>;
 
-const Select: React.FC<SelectProps> = ({
+const customComponents = {
+  NoOptionsMessage,
+};
+
+const Search: React.FC<SelectProps> = ({
   options,
   defaultValue,
   onChange,
@@ -44,6 +51,7 @@ const Select: React.FC<SelectProps> = ({
   labelPosition,
   variant = 'primary',
   ref,
+  promiseOptions,
 }) => {
   const customStyles: StylesConfig<OptionType, false> = {
     control: (base: any, state: any) => ({
@@ -106,7 +114,7 @@ const Select: React.FC<SelectProps> = ({
       <label className="text-sm m-1 font-semibold" htmlFor={id}>
         {name}
       </label>
-      <Selektor
+      <AsyncSelect
         defaultValue={defaultValue}
         onChange={onChange}
         options={options}
@@ -114,9 +122,11 @@ const Select: React.FC<SelectProps> = ({
         name={id}
         id={id}
         ref={ref}
+        loadOptions={promiseOptions}
+        components={customComponents}
       />
     </div>
   );
 };
 
-export default Select;
+export default Search;

@@ -1,20 +1,19 @@
-'use client';
-
-import {useDeleteProject} from '@/hooks/useDeleteProject';
 import { formatDate } from '@/lib/time';
 import { TProject } from '@/types/projects';
-import { Story } from '@/types/story';
+import { TStory } from '@/types/story';
+import AddUser from '../AddUser/AddUser';
 import AllStoryList from '../AllStoryList/AllStoryList';
-import Button from '../Button/Button';
+import AllUserList from '../AllUserList/AllUserList';
 import Container from '../Container/Container';
 import NewTask from '../NewTask/NewTask';
+import DeleteProjectButton from './DeleteProjectButton/DeleteProjectButton';
 
 interface ProjectPanelProps {
   token: string;
   id: string;
   projectData: TProject;
   userId: string;
-  stories: Story[];
+  stories: TStory[];
 }
 
 const ProjectPanel = ({
@@ -23,8 +22,6 @@ const ProjectPanel = ({
   projectData,
   stories,
 }: ProjectPanelProps) => {
-  const deleteHandler = useDeleteProject(id, token);
-
   return (
     <>
       <Container>
@@ -48,17 +45,25 @@ const ProjectPanel = ({
 
         <p className="text-xl font-semibold mt-4 max-w-lg">Stories</p>
         <AllStoryList stories={stories} projectData={projectData} />
-
-        <NewTask
-          token={token}
-          userId={projectData.userId}
-          tags={projectData.tags}
-          projectId={projectData.id}
-          users={projectData.users}
-        />
-        <Button onClick={deleteHandler} className="mt-4 w-full" intent="text">
-          Delete project
-        </Button>
+        <Container className="grid gap-4 grid-cols-2 mt-4">
+          <NewTask
+            token={token}
+            userId={projectData.userId}
+            tags={projectData.tags}
+            projectId={projectData.id}
+            users={projectData.users}
+          />
+          <>
+            <div className="flex flex-col gap-2">
+              <p className="text-xl font-semibold">Users</p>
+              <Container>
+                <AllUserList token={token} projectData={projectData} />
+                <AddUser token={token} projectData={projectData} />
+              </Container>
+            </div>
+          </>
+        </Container>
+        <DeleteProjectButton token={token} id={id} />
       </Container>
     </>
   );

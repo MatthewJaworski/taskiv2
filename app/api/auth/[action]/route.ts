@@ -10,7 +10,7 @@ export async function POST(
   const accept = headers().get('Accept') as string;
   const body = await request.json();
 
-  const result = await fetch(`http://localhost:5025/api/auth/${action}`, {
+  const result = await fetch(`http://localhost:5025/api/user/${action}`, {
     body: JSON.stringify(body),
     method: 'POST',
     headers: {
