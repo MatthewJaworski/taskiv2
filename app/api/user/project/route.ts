@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     next: { tags: ['addProject'] },
   });
   const data = await result.json();
-  console.log(data, 'data dodanie');
+
   return new Response(JSON.stringify(data), {
     status: 201,
   });
@@ -37,9 +37,7 @@ export async function DELETE(request: NextRequest) {
     },
     next: { tags: ['deleteProject'] },
   });
-  // console.log("body", JSON.stringify(body))
   const data = await result.json();
-  console.log(data, 'data usuniecie');
   return new Response(JSON.stringify(data), {
     status: 201,
   });

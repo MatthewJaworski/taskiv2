@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
     );
   }
   const response = NextResponse.next();
-  console.log('NOWYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY', token);
+
 
   response.cookies.set('tokenTaski', token, {
     httpOnly: true,

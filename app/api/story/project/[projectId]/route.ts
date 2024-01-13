@@ -24,8 +24,6 @@ export async function GET(
   }
 
   const result = await response.json();
-  
-  console.log(result)
 
   return new Response(JSON.stringify({ stories: result.stories }), {
     status: 200,

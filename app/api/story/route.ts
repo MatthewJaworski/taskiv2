@@ -22,8 +22,7 @@ export async function POST(request: NextRequest) {
     },
     next: { tags: ['allTasks'] },
   });
-  // console.log(result, 'result.status');
-  // console.log(JSON.stringify(requestBody), 'body');
+
   const data = await result.json();
   return new Response(JSON.stringify(data), {
     status: 201,

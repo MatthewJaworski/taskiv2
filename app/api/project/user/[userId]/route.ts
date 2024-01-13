@@ -7,10 +7,7 @@ export async function GET(
   const userId = params.userId;
   const headersList = headers();
   const authorization = headersList.get('Authorization');
-  // console.log(
-  //   'REESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULT',
-  //   userId
-  // );
+
   const response = await fetch(
     `http://localhost:5025/api/projects/user/${userId}`,
     {

@@ -16,7 +16,6 @@ export async function GET(
     },
     next: { tags: ['projectUsers'] },
   });
-   console.log(queryName, 'queryName');
 
   const data = await result.json();
   const regex = new RegExp(queryName || '', 'gi');

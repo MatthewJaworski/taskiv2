@@ -18,8 +18,7 @@ export async function POST(request: NextRequest) {
     },
     next: { tags: ['allProjects'] },
   });
-  console.log(result, 'result.status');
-  console.log(JSON.stringify(body), 'body');
+
   const data = await result.json();
   return new Response(JSON.stringify(data), {
     status: 201,

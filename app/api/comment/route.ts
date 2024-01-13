@@ -26,8 +26,7 @@ export async function POST(request: NextRequest) {
       next: { tags: ['stories'] },
     }
   );
-  console.log(result, 'result.status');
-  console.log('l', JSON.stringify(body));
+
   const data = await result.json();
   return new Response(JSON.stringify(data), {
     status: 201,

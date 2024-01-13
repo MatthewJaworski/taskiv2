@@ -23,7 +23,7 @@ const fetcher = async <T>({
     'Content-Type': 'application/json',
   };
   if (token) headers['Authorization'] = `Bearer ${token}`;
-  // console.log(url, 'URRRRL');
+
   const res = await fetch(`http://localhost:3000${url}`, {
     method,
     body: body && JSON.stringify(body),
@@ -66,8 +66,6 @@ export const getProject = (id: string, token: string) => {
   });
 };
 export const getAllUserProjects = (userId: string, token: string) => {
-  // console.log(userId, 'userId');
-  // console.log(token, 'token');
 
   return fetcher({
     url: `/api/project/user/${userId}`,

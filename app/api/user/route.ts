@@ -1,7 +1,7 @@
-import { decodeJWT } from '@/lib/auth';
+import { decodeJWT, getTokenFromAuthrorizationHeader } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
-import {getTokenFromAuthrorizationHeader} from '@/lib/auth';
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const queryName = searchParams.get('name');
@@ -14,20 +14,22 @@ export async function GET(request: NextRequest) {
     },
     next: { tags: ['allUsers'] },
   });
-  
+
   const data = await result.json();
   const regex = new RegExp(queryName || '', 'gi');
-  const token=getTokenFromAuthrorizationHeader(authorization!);
-  const {id}=await decodeJWT(token);
-  console.log(id,'id')
+  const token = getTokenFromAuthrorizationHeader(authorization!);
+  const {
+    data: { id },
+  } = await decodeJWT(token);
+
   const filteredUsers =
     queryName !== ''
       ? data.filter(
           (item: { name: string; id: string }) =>
-            item.name && item.name.match(regex) && item.id!==id
+            item.name && item.name.match(regex) && item.id !== id
         )
       : data;
-  
+
   const mappedUsers = filteredUsers.map(
     (item: { name: string; id: string }) => {
       return {

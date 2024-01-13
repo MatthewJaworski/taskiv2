@@ -28,10 +28,7 @@ export const decodeJWT = async (jwt: any) => {
 
     payload = result.payload;
   }
-  // console.log(
-  //   newToken,
-  //   'NEW TOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKEN'
-  // );
+  
   return { data: payload, token: newToken };
 };
 export const getUserIdFromCookie = async () => {
@@ -50,6 +47,5 @@ export const getUserDataFromCookie = async () => {
   if (!jwt) return null;
   const { data } = await decodeJWT(jwt);
 
-  console.log(data, 'data getUserDataFromCookie');
   return data as TTokenUser;
 };
