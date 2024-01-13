@@ -6,9 +6,10 @@ type ProjectCardProps = {
   name: string;
   description: string;
   id: string;
+  token?: string;
 };
 
-const ProjectCard = ({ name, description, id }: ProjectCardProps) => {
+const StoryCard = ({ name, description, id }: ProjectCardProps) => {
   return (
     <Container className="flex flex-col align-middle text-pretty items w-[200px] h-[300px] ">
       <p className="text-wrap font-bold text-xl text-secondary">{name}</p>
@@ -20,4 +21,4 @@ const ProjectCard = ({ name, description, id }: ProjectCardProps) => {
   );
 };
 
-export default ProjectCard;
+export default StoryCard;

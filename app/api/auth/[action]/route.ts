@@ -19,8 +19,8 @@ export async function POST(
     },
   });
   console.log(JSON.stringify(body), 'body');
-
   const data = await result.json();
+  console.log(data, 'data');
   if (data.success) {
     const res = new Response(JSON.stringify(data), { status: 200 });
     if (data.accessToken) {

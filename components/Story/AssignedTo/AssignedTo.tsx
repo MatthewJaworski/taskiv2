@@ -17,8 +17,8 @@ export const AssignedTo = ({ projectId, token, data }: IAssignedToProps) => {
   const { assignedTo } = data;
 
   const assignedUser = {
-    value: assignedTo.id,
-    label: assignedTo.name,
+    value: assignedTo?.id,
+    label: assignedTo?.name,
   };
   const promiseOptions = (inputValue: string) => {
     return filterUsersForProject({

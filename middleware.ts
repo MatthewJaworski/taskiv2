@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { getJWTFromCookie, decodeJWT } from '@/lib/auth';
+import { decodeJWT, getJWTFromCookie } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   if (
@@ -19,12 +18,20 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-  const data = await decodeJWT(jwt);
+  const { data, token } = await decodeJWT(jwt);
 
   if (!data.id && !data.username) {
     return NextResponse.redirect(
       new URL('/sign-in', process.env.NEXT_PUBLIC_UR)
     );
   }
-  return NextResponse.next();
+  const response = NextResponse.next();
+  console.log('NOWYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY', token);
+
+  response.cookies.set('tokenTaski', token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+  });
+  return response;
 }

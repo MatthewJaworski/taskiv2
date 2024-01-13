@@ -7,12 +7,9 @@ export async function GET(
   const userId = params.userId;
   const headersList = headers();
   const authorization = headersList.get('Authorization');
-  // console.log(
-  //   'REESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULTREESUUUUUUUULT',
-  //   userId
-  // );
+
   const response = await fetch(
-    `http://localhost:5025/api/projects/user/${userId}`,
+    `http://localhost:5025/api/stories/user/${userId}`,
     {
       method: 'GET',
       headers: {
@@ -20,13 +17,14 @@ export async function GET(
       },
     }
   );
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
   const result = await response.json();
 
-  return new Response(JSON.stringify({ projects: result.projects }), {
+  return new Response(JSON.stringify({ stories: result }), {
     status: 200,
   });
 }

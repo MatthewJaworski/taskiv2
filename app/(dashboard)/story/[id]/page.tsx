@@ -35,7 +35,7 @@ const StoryPage: NextPage<StoryPageProps> = async ({ params: { id } }) => {
         >
           <p>{tag?.name}</p>
         </Container>
-        <Container className="mt-4 grid gap-4 grid-cols-2 text-center">
+        <Container className="mt-4 grid gap-4 grid-cols-auto-fit-s text-center">
           <Container>
             <p>Created: {formatDate(createDate)}</p>
             <p>
@@ -57,7 +57,7 @@ const StoryPage: NextPage<StoryPageProps> = async ({ params: { id } }) => {
           </p>
           <h2>{data.description}</h2>
         </Container>
-        <Container className="mt-4 grid gap-4 grid-cols-2">
+        <Container className="mt-4 grid gap-4 grid-cols-auto-fit-s">
           <AssignedTo data={data} projectId={projectId} token={token} />
           <Complete story={data} token={token} />
         </Container>

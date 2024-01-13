@@ -13,7 +13,8 @@ export async function DELETE(
       Authorization: authorization || '',
     },
   });
-
+  console.log(id, 'id');
+  console.log(result, 'result');
   if (result.status === 204) {
     return new Response(JSON.stringify({ success: true }), {
       status: 200,

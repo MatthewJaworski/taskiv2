@@ -1,14 +1,6 @@
 'use client';
 import { useState } from 'react';
-import {
-  ArrowLeft,
-  ArrowRight,
-  Bell,
-  Book,
-  Globe,
-  Plus,
-  Settings,
-} from 'react-feather';
+import { ArrowLeft, ArrowRight, Book, Globe, Home, Plus } from 'react-feather';
 import SidebarLink from './SidebarLink';
 export interface SidebarProps {}
 
@@ -18,14 +10,13 @@ const Sidebar: React.FC<SidebarProps> = () => {
     ? ' max-w-[300px] justify-between bg-black/20  px-6 py-10'
     : 'max-w-[0px]  justify-center items-center';
   const sidebarLinks = [
+    { icon: Home, text: 'Home', href: '/home' },
     { icon: Globe, text: 'Overview', href: '/overview' },
     { icon: Book, text: 'Tasks', href: '/tasks' },
-    { icon: Bell, text: 'Notifications', href: '/notifications' },
-    { icon: Settings, text: 'Settings', href: '/settings' },
   ];
   return (
     <div
-      className={`text-white flex max-w-[300pxpx]  flex-col duration-200   h-screen ease-out ${classes}`}
+      className={`text-white flex max-w-[300pxpx]  flex-col duration-200 h-screen ease-out ${classes}`}
     >
       {isOpen ? (
         <>
@@ -46,16 +37,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
             </div>
           </div>
           <div className="text-white">
-            <p className="mt-10 mb-3 font-bold">Profile</p>
-            {/* <UserButton
-              appearance={{
-                elements: {
-                  userButtonOuterIdentifier: 'text-white font-bold',
-                  userButtonBox: 'flex flex-row-reverse',
-                },
-              }}
-              showName={true}
-            /> */}
+            <SidebarLink Icon={ArrowLeft} text="Logout" href="/settings" />
           </div>
         </>
       ) : (

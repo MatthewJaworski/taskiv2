@@ -10,21 +10,25 @@ interface AllStoryListProps {
 const AllStoryList = ({ stories, projectData }: AllStoryListProps) => {
   return (
     <Container>
-      <ul className="flex flex-col gap-2">
-        {stories.map((story) => {
-          const assignedTo =
-            projectData.users.find((user) => user.id === story.assignedTo?.id)
-              ?.name || '';
-          return (
-            <StoryListElement
-              key={story.id}
-              assignedTo={assignedTo}
-              name={story.name}
-              id={story.id}
-            />
-          );
-        })}
-      </ul>
+      {stories.length ? (
+        <ul className="flex flex-col gap-2">
+          {stories.map((story) => {
+            const assignedTo =
+              projectData.users.find((user) => user.id === story.assignedTo?.id)
+                ?.name || '';
+            return (
+              <StoryListElement
+                key={story.id}
+                assignedTo={assignedTo}
+                name={story.name}
+                id={story.id}
+              />
+            );
+          })}
+        </ul>
+      ) : (
+        <p>No stories</p>
+      )}
     </Container>
   );
 };

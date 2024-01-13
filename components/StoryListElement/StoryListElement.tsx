@@ -7,16 +7,16 @@ interface StoryListElementProps {
   id: string;
 }
 
-const StoryListElement = ({ name, assignedTo,id }: StoryListElementProps) => {
+const StoryListElement = ({ name, assignedTo, id }: StoryListElementProps) => {
   return (
     <Container
-      className="grid grid-cols-3 gap-4 items-center"
+      className="grid grid-cols-3 max-md:grid-cols-1 gap-4 items-center"
       intent={'secondary'}
     >
       <p>{name}</p>
       <p>Assigned to: {assignedTo}</p>
-      <Link className='px-10 w-full' href={`/story/${id}`}>
-        <Button className='w-full' size="medium">
+      <Link className="px-10 w-full" href={`/story/${id}`}>
+        <Button className="w-full" size="medium">
           Open
         </Button>
       </Link>

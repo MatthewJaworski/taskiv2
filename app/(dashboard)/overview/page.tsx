@@ -3,28 +3,32 @@ import Container from '@/components/Container/Container';
 import ProjectCard from '@/components/ProjectCard/ProjectCard';
 import { getAllUserProjects } from '@/lib/api';
 import { getJWTFromCookie, getUserIdFromCookie } from '@/lib/auth';
+import { TProject } from '@/types/projects';
 import Link from 'next/link';
 
 const Home = async () => {
   const userId = await getUserIdFromCookie();
   const token = await getJWTFromCookie();
-  const { projects  } = await getAllUserProjects(
+  const { projects } = (await getAllUserProjects(
     userId as string,
     token as string
-  ) as any;
+  )) as any;
+
+  const userProjects = projects.filter(
+    (project: TProject) => project.userId === userId
+  );
 
   return (
     <Container>
       <h1 className="text-5xl font-semibold max-w-lg">All Projects</h1>
-      {projects.length ? (
-        <Container className="mt-4 grid gap-4 grid-cols-auto-fit-s h-max break-words ">
+      {userProjects.length ? (
+        <Container className=" mt-4 grid gap-4 grid-cols-auto-fit-s h-max break-words">
           {projects.map((project: any) => (
             <ProjectCard
               key={project.id}
               name={project.name}
               description={project.description}
               id={project.id}
-              token={token}
             />
           ))}
         </Container>

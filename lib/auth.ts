@@ -1,23 +1,55 @@
+import { TTokenUser } from '@/types/auth';
 import { jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
+import { getNewToken } from './api';
 
 export const getJWTFromCookie = () => {
   return cookies().get('tokenTaski')?.value;
 };
 
 export const decodeJWT = async (jwt: any) => {
-  const { payload } = await jwtVerify(
-    jwt,
-    new TextEncoder().encode('P5BsNuJR8hgfAx7ap9ZkW3jmGnC6rMDe')
-  );
-  return payload;
+  let payload;
+  let newToken = jwt;
+  try {
+    const result = await jwtVerify(
+      jwt,
+      new TextEncoder().encode('P5BsNuJR8hgfAx7ap9ZkW3jmGnC6rMDe')
+    );
+    payload = result.payload;
+  } catch (error) {
+    const { refreshedToken } = (await getNewToken(jwt)) as {
+      refreshedToken: string;
+    };
+    const result = await jwtVerify(
+      refreshedToken as string,
+      new TextEncoder().encode('P5BsNuJR8hgfAx7ap9ZkW3jmGnC6rMDe')
+    );
+    newToken = refreshedToken;
+
+    payload = result.payload;
+  }
+  // console.log(
+  //   newToken,
+  //   'NEW TOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKENTOKEN'
+  // );
+  return { data: payload, token: newToken };
 };
 export const getUserIdFromCookie = async () => {
   const jwt = getJWTFromCookie();
   if (!jwt) return null;
-  const { id } = await decodeJWT(jwt);
+  const { data } = await decodeJWT(jwt);
+  const id = data.id;
   return id;
 };
+
 export const getTokenFromAuthrorizationHeader = (authorization: string) => {
   return authorization.split(' ')[1];
+};
+export const getUserDataFromCookie = async () => {
+  const jwt = getJWTFromCookie();
+  if (!jwt) return null;
+  const { data } = await decodeJWT(jwt);
+
+  console.log(data, 'data getUserDataFromCookie');
+  return data as TTokenUser;
 };

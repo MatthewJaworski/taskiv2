@@ -40,9 +40,9 @@ export async function PUT(
     },
     next: { tags: ['story'] },
   });
-  console.log(id, 'id');
-  console.log(result, 'result');
-  console.log(JSON.stringify(body), 'body');
+  // console.log(id, 'id');
+  // console.log(result, 'result');
+  // console.log(JSON.stringify(body), 'body');
 
   const data = await result.json();
   return new Response(JSON.stringify(data), {

@@ -23,7 +23,7 @@ const fetcher = async <T>({
     'Content-Type': 'application/json',
   };
   if (token) headers['Authorization'] = `Bearer ${token}`;
-
+  // console.log(url, 'URRRRL');
   const res = await fetch(`http://localhost:3000${url}`, {
     method,
     body: body && JSON.stringify(body),
@@ -66,10 +66,27 @@ export const getProject = (id: string, token: string) => {
   });
 };
 export const getAllUserProjects = (userId: string, token: string) => {
+  // console.log(userId, 'userId');
+  // console.log(token, 'token');
+
   return fetcher({
     url: `/api/project/user/${userId}`,
     method: 'GET',
     token: token,
+  });
+};
+export const getAllUserStories = (userId: string, token: string) => {
+  return fetcher({
+    url: `/api/story/user/${userId}`,
+    method: 'GET',
+    token: token,
+  });
+};
+export const getNewToken = (token: string) => {
+  return fetcher({
+    url: `/api/user/token`,
+    method: 'POST',
+    body: { token },
   });
 };
 export const createNewProject = (
@@ -163,32 +180,50 @@ export const filterUsers = ({
   return fetcher<OptionType[]>({
     url: `/api/user?name=${name}`,
     method: 'GET',
-    token
+    token,
   });
 };
 
-export const addUserToProject = ({data,token}:{data:TUserToProject,token:string})=>{
+export const addUserToProject = ({
+  data,
+  token,
+}: {
+  data: TUserToProject;
+  token: string;
+}) => {
   return fetcher({
-    url:`/api/user/project`,
-    method:'POST',
+    url: `/api/user/project`,
+    method: 'POST',
     token,
-    body:data
-  })
-}
+    body: data,
+  });
+};
 
-export const removeUserFromProject = ({data,token}:{data:TUserToProject,token:string})=>{
+export const removeUserFromProject = ({
+  data,
+  token,
+}: {
+  data: TUserToProject;
+  token: string;
+}) => {
   return fetcher({
-    url:`/api/user/project`,
-    method:'DELETE',
+    url: `/api/user/project`,
+    method: 'DELETE',
     token,
-    body:data
-  })
-}
-export const addComment = ({data,token}:{data:TCommentRequest,token:string})=>{
+    body: data,
+  });
+};
+export const addComment = ({
+  data,
+  token,
+}: {
+  data: TCommentRequest;
+  token: string;
+}) => {
   return fetcher({
-    url:`/api/comment`,
-    method:'POST',
+    url: `/api/comment`,
+    method: 'POST',
     token,
-    body:data
-  })
-}
+    body: data,
+  });
+};

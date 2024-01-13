@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useFormError } from './useFormError';
 
 import { TLoginDto } from '@/types/auth';
-import { TLoginFieldObject, TLoginFields } from '@/types/login';
+import { TLoginFieldObject, TLoginFields, TLoginReponse } from '@/types/login';
 import { TResponse } from '@/types/response';
 import { TErrors } from '@/types/utility';
 export const useLogin = () => {
@@ -33,7 +33,7 @@ export const useLogin = () => {
       }
     });
 
-    const response = await loginUser(requestBody) as TResponse & TErrors;
+    const response = await loginUser(requestBody) as TLoginReponse & TErrors;
 
     if (response.errors) {
       for (const field in response.errors) {
@@ -43,7 +43,7 @@ export const useLogin = () => {
         });
       }
     }
-    if (response.success) {
+    if (response.success || response.accessToken) {
       router.push('/home');
     }
   };

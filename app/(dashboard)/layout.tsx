@@ -1,7 +1,5 @@
 import Container from '@/components/Container/Container';
 import Sidebar from '@/components/Sidebar/Sidebar';
-import { getAllUserProjects } from '@/lib/api';
-import { getJWTFromCookie, getUserIdFromCookie } from '@/lib/auth';
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 
@@ -12,18 +10,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const userId = await getUserIdFromCookie();
-  const token = await getJWTFromCookie();
-  const projects = await getAllUserProjects(userId as string, token as string);
-
-
-
   return (
     <html lang="en">
       <body
         className={`${inter.className} flex w-screen h-screen gap-2 bg-background text-white`}
       >
-        <aside>
+        <aside className="fixed bg-background z-10">
           <Sidebar />
         </aside>
         <main className="flex w-screen h-screen flex-wrap overflow-auto scrollbar">

@@ -28,7 +28,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
           className="w-full flex justify-center items-center"
         >
           <Icon size={iconSize || 20} />
-          <p>{text}</p>
+          <p className='text-nowrap'>{text}</p>
         </Button>
       </Link>
     </li>

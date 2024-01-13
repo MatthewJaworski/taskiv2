@@ -10,3 +10,10 @@ export type TLoginDto = {
   password: string;
 };
 export type TLoginKeys = keyof TLoginDto;
+
+export type TTokenUser = {
+  id: string;
+  email: string;
+  username: string;
+  fullName: string;
+}

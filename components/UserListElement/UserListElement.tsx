@@ -11,6 +11,7 @@ interface UserListElementProps {
   userId: string;
   projectId: string;
   token: string;
+  canDelete?: boolean;
 }
 
 const UserListElement = ({
@@ -19,6 +20,7 @@ const UserListElement = ({
   userId,
   projectId,
   token,
+  canDelete,
 }: UserListElementProps) => {
   const onClickHandler = async () => {
     const userToDelete = {
@@ -43,13 +45,15 @@ const UserListElement = ({
       {owner ? (
         <p>Owner</p>
       ) : (
-        <Button
-          onClick={onClickHandler}
-          className="px-10  w-full"
-          size="medium"
-        >
-          Delete
-        </Button>
+        canDelete && (
+          <Button
+            onClick={onClickHandler}
+            className="px-10  w-full"
+            size="medium"
+          >
+            Delete
+          </Button>
+        )
       )}
     </Container>
   );
