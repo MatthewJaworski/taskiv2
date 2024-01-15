@@ -14,7 +14,7 @@ export async function GET(
     },
   });
   const data = await result.json();
-  
+
   return new Response(JSON.stringify(data), {
     status: 200,
   });
@@ -42,6 +42,7 @@ export async function PUT(
   });
 
   const data = await result.json();
+  console.log(data, 'data');
   return new Response(JSON.stringify(data), {
     status: 201,
   });

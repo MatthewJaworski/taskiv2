@@ -1,7 +1,11 @@
 'use client';
+import removeToken from '@/actions/removeToken';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Book, Globe, Home, Plus } from 'react-feather';
+import Button from '../Button/Button';
 import SidebarLink from './SidebarLink';
+
 export interface SidebarProps {}
 
 const Sidebar: React.FC<SidebarProps> = () => {
@@ -14,6 +18,11 @@ const Sidebar: React.FC<SidebarProps> = () => {
     { icon: Globe, text: 'Overview', href: '/overview' },
     { icon: Book, text: 'Tasks', href: '/tasks' },
   ];
+  const router = useRouter();
+  const logoutHandler = async () => {
+    router.push('/');
+    await removeToken();
+  };
   return (
     <div
       className={`text-white flex max-w-[300pxpx]  flex-col duration-200 h-screen ease-out ${classes}`}
@@ -37,7 +46,13 @@ const Sidebar: React.FC<SidebarProps> = () => {
             </div>
           </div>
           <div className="text-white">
-            <SidebarLink Icon={ArrowLeft} text="Logout" href="/settings" />
+            <Button
+              className="w-full"
+              intent="secondary"
+              onClick={logoutHandler}
+            >
+              Logout
+            </Button>
           </div>
         </>
       ) : (

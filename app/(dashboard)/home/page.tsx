@@ -7,6 +7,7 @@ import { getJWTFromCookie, getUserDataFromCookie } from '@/lib/auth';
 import { TTokenUser } from '@/types/auth';
 import { TProject } from '@/types/projects';
 import { TStory } from '@/types/story';
+import Link from 'next/link';
 
 const Home = async () => {
   const { id, fullName } = (await getUserDataFromCookie()) as TTokenUser;
@@ -38,9 +39,11 @@ const Home = async () => {
             />
           ))}
         </div>
-        <Button intent="secondary" className="mt-4 w-full">
-          Check all
-        </Button>
+        <Link href="/overview">
+          <Button intent="secondary" className="mt-4 w-full">
+            Check all
+          </Button>
+        </Link>
       </Container>
       <Container className="mt-4">
         <p className="text-2xl font-semibold">Stories assigned to You</p>
@@ -54,9 +57,11 @@ const Home = async () => {
             />
           ))}
         </div>
-        <Button intent="secondary" className="mt-4 w-full">
-          Check all
-        </Button>
+        <Link href="/tasks">
+          <Button intent="secondary" className="mt-4 w-full">
+            Check all
+          </Button>
+        </Link>
       </Container>
     </Container>
   );
