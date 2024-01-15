@@ -21,6 +21,7 @@ const inputClasses = cva(
       error: {
         true: ['bg-accent', 'hover:bg-accent/70'],
         false: ['bg-primary', 'hover:bg-primary/70'],
+        undefined: ['bg-primary', 'hover:bg-primary/70'],
       },
       type: {
         password: ['text-black'],

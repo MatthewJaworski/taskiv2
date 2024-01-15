@@ -1,6 +1,6 @@
 import Button from '@/components/Button/Button';
 import Container from '@/components/Container/Container';
-import ProjectCard from '@/components/ProjectCard/ProjectCard';
+import Overview from '@/components/Overview/Overview';
 import { getAllUserProjects } from '@/lib/api';
 import { getJWTFromCookie, getUserIdFromCookie } from '@/lib/auth';
 import { TProject } from '@/types/projects';
@@ -20,18 +20,9 @@ const Home = async () => {
 
   return (
     <Container>
-      <h1 className="text-5xl font-semibold max-w-lg">All Projects</h1>
+      <h1 className="text-5xl font-semibold max-w-lg mb-4">All Projects</h1>
       {userProjects.length ? (
-        <Container className=" mt-4 grid gap-4 grid-cols-auto-fit-s h-max break-words">
-          {projects.map((project: any) => (
-            <ProjectCard
-              key={project.id}
-              name={project.name}
-              description={project.description}
-              id={project.id}
-            />
-          ))}
-        </Container>
+        <Overview projects={projects} />
       ) : (
         <Container className="mt-4 flex flex-col  justify-center text-center h-max break-words ">
           <h2 className="text-3xl font-semibold">You have no projects</h2>

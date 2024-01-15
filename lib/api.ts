@@ -1,4 +1,4 @@
-import { OptionType } from '@/components/Select/Select';
+import { OptionType } from '@/components/Search/Search';
 import { TLoginDto, TRegisterUserDto } from '@/types/auth';
 import { TCommentRequest } from '@/types/comment';
 import { CreateProjectDto, UpdateProjectDto } from '@/types/projects';
@@ -66,7 +66,6 @@ export const getProject = (id: string, token: string) => {
   });
 };
 export const getAllUserProjects = (userId: string, token: string) => {
-
   return fetcher({
     url: `/api/project/user/${userId}`,
     method: 'GET',

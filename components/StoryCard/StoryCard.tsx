@@ -2,14 +2,14 @@ import Link from 'next/link';
 import Button from '../Button/Button';
 import Container from '../Container/Container';
 
-type ProjectCardProps = {
+export interface IStoryProjectCard {
   name: string;
   description?: string;
   id: string;
   token?: string;
 };
 
-const StoryCard = ({ name, description, id }: ProjectCardProps) => {
+const StoryCard = ({ name, description, id }: IStoryProjectCard) => {
   return (
     <Container className="flex flex-col align-middle text-pretty items w-[200px] h-[300px] ">
       <p className="text-wrap font-bold text-xl text-secondary">{name}</p>
