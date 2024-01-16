@@ -1,6 +1,8 @@
 'use client';
 import { TProject } from '@/types/projects';
+import Link from 'next/link';
 import { useState } from 'react';
+import Button from '../Button/Button';
 import CardDisplayer from '../CardDisplayer/CardDisplayer';
 import Container from '../Container/Container';
 import Input from '../Input/Input';
@@ -43,19 +45,24 @@ const Tasks = ({ projects }: ITasksProps) => {
           />
         </div>
       </Container>
-      <Container className='mt-4'>
+      <Container className="mt-4">
         {filteredProjects.length > 0 ? (
           filteredProjects.map((project: TProject) => (
             <Container key={project.id} className="mt-4">
-              <p className="text-2xl font-semibold">{project.name}</p>
-              <Container className="mt-4 flex">
+              <div className="grid grid-cols-auto-fit-s">
+                <p className="text-2xl font-semibold">{project.name}</p>
+                <Link className='m-auto w-full' href={`/project/${project.id}`}>
+                  <Button className='w-full' intent="secondary">Open project</Button>
+                </Link>
+              </div>
+              <Container className="mt-4 grid grid-cols-auto-fit-s">
                 <CardDisplayer Card={StoryCard} elements={project.stories} />
               </Container>
             </Container>
           ))
         ) : (
           <p className="text-2xl text-center font-semibold">
-            No projects found
+            No tasks found
           </p>
         )}
       </Container>

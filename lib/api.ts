@@ -224,3 +224,31 @@ export const addComment = ({
     body: data,
   });
 };
+export const getAllUsers= (token: string) => {
+  return fetcher({
+    url: `/api/user`,
+    method: 'GET',
+    token,
+  });
+}
+export const getAllUserData = (id:string,token: string) => {
+  return fetcher({
+    url: `/api/user/${id}`,
+    method: 'GET',
+    token,
+  });
+}
+export const deleteUser = (id:string,token: string) => {
+  return fetcher({
+    url: `/api/user/${id}`,
+    method: 'DELETE',
+    token,
+  });
+}
+export const getAllProjects = (token: string) => {
+  return fetcher({
+    url: `/api/project`,
+    method: 'GET',
+    token,
+  });
+}

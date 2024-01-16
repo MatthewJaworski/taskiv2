@@ -1,5 +1,6 @@
-import { getUserIdFromCookie } from '@/lib/auth';
+import { getUserDataFromCookie } from '@/lib/auth';
 import { formatDate } from '@/lib/time';
+import { TTokenUser } from '@/types/auth';
 import { TProject } from '@/types/projects';
 import { TStory } from '@/types/story';
 import AddUser from '../AddUser/AddUser';
@@ -23,7 +24,8 @@ const ProjectPanel = async ({
   projectData,
   stories,
 }: ProjectPanelProps) => {
-  const userId = await getUserIdFromCookie();
+  const { id: userId, role } = (await getUserDataFromCookie()) as TTokenUser;
+  const isAdmin = role === 'Admin';
   const isUserOwner = userId === projectData.userId;
   return (
     <>
@@ -68,7 +70,9 @@ const ProjectPanel = async ({
             </div>
           </>
         </Container>
-        {isUserOwner && <DeleteProjectButton token={token} id={id} />}
+        {(isUserOwner || isAdmin) && (
+          <DeleteProjectButton token={token} id={id} />
+        )}
       </Container>
     </>
   );

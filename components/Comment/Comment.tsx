@@ -1,4 +1,3 @@
-import { formatDate } from '@/lib/time';
 import Container from '../Container/Container';
 
 interface ICommentProps {
@@ -7,12 +6,11 @@ interface ICommentProps {
   userName: string;
 }
 const Comment = ({ contnet, creationDate, userName }: ICommentProps) => {
-  const date = formatDate(creationDate);
   return (
     <Container>
       <div className="flex justify-between">
         <p className="font-semibold">{userName}</p>
-        <p>{date}</p>
+        <p>{creationDate}</p>
       </div>
       <p className="mt-4">{contnet}</p>
     </Container>

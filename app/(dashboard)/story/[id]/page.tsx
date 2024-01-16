@@ -4,8 +4,9 @@ import { AssignedTo } from '@/components/Story/AssignedTo/AssignedTo';
 import CommentsSection from '@/components/Story/CommentsSection/CommentsSection';
 import Complete from '@/components/Story/Complete/Complete';
 import { getStory } from '@/lib/api';
-import { getJWTFromCookie, getUserIdFromCookie } from '@/lib/auth';
+import { getJWTFromCookie, getUserDataFromCookie } from '@/lib/auth';
 import { formatDate } from '@/lib/time';
+import { TTokenUser } from '@/types/auth';
 import { TStory } from '@/types/story';
 import { NextPage } from 'next';
 
@@ -17,13 +18,18 @@ interface StoryPageProps {
 
 const StoryPage: NextPage<StoryPageProps> = async ({ params: { id } }) => {
   const token = await getJWTFromCookie()!;
-  const userId = (await getUserIdFromCookie()!) as string;
+  const { id: userId, role } = (await getUserDataFromCookie()!) as TTokenUser;
   const data = (await getStory(id, token)) as TStory;
-  const { priority, storyPoints } = data;
-  const { projectId } = data;
-  const { tag } = data;
-  const { createDate, completeDate } = data;
-  const { comments } = data;
+  const {
+    priority,
+    storyPoints,
+    projectId,
+    tag,
+    createDate,
+    completeDate,
+    comments,
+  } = data;
+
   return (
     <>
       <Container>
@@ -67,6 +73,7 @@ const StoryPage: NextPage<StoryPageProps> = async ({ params: { id } }) => {
           token={token}
           storyId={data.id}
           userId={userId}
+          role={role}
         />
         <Container className="mt-4">
           <Button className="w-full" intent="text">

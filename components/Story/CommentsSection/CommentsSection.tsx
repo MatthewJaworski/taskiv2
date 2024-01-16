@@ -15,14 +15,17 @@ interface ICommentsSectionProps {
   userId: string;
   storyId: string;
   comments: TComment[];
+  role: string;
 }
 const CommentsSection = ({
   token,
   userId,
   storyId,
   comments,
+  role,
 }: ICommentsSectionProps) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const isUser = role === 'User';
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -34,7 +37,7 @@ const CommentsSection = ({
       type: 'story',
       typeId: storyId,
     };
-
+    if (!comment) return;
     const result = (await addComment({ data: newComment, token })) as TResponse;
     if (result.success) {
       await revalidateStory();
@@ -46,16 +49,19 @@ const CommentsSection = ({
   const orderedComments = comments.sort((a, b) => {
     return new Date(b.createDate).getTime() - new Date(a.createDate).getTime();
   });
+
   return (
     <Container className="mt-4">
       <p className="text-2xl font-semibold">Comments</p>
       <Container>
-        <form onSubmit={handleSubmit}>
-          <TextArea ref={textAreaRef} id="addComment" name="Add comment" />
-          <Button type="submit" intent="secondary" className="w-full mt-4">
-            Add comment
-          </Button>
-        </form>
+        {isUser && (
+          <form onSubmit={handleSubmit}>
+            <TextArea ref={textAreaRef} id="addComment" name="Add comment" />
+            <Button type="submit" intent="secondary" className="w-full mt-4">
+              Add comment
+            </Button>
+          </form>
+        )}
         <div className="flex flex-col gap-4 mt-4">
           {orderedComments.map((comment) => (
             <Comment

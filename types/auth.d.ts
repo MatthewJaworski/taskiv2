@@ -16,4 +16,5 @@ export type TTokenUser = {
   email: string;
   username: string;
   fullName: string;
-}
+  role: string;
+};

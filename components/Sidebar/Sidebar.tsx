@@ -1,23 +1,38 @@
 'use client';
 import removeToken from '@/actions/removeToken';
+import { TTokenUser } from '@/types/auth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Book, Globe, Home, Plus } from 'react-feather';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Book,
+  Globe,
+  Home,
+  Plus,
+  User,
+} from 'react-feather';
 import Button from '../Button/Button';
 import SidebarLink from './SidebarLink';
 
-export interface SidebarProps {}
+export interface SidebarProps {
+  user: TTokenUser;
+}
 
-const Sidebar: React.FC<SidebarProps> = () => {
-  const [isOpen, setIsOpen] = useState(true);
+const Sidebar: React.FC<SidebarProps> = ({ user }) => {
+  const isAdmin = user.role === 'Admin';
+  const isUser = user.role === 'User';
+  const [isOpen, setIsOpen] = useState(false);
   const classes = isOpen
     ? ' max-w-[300px] justify-between bg-black/20  px-6 py-10'
     : 'max-w-[0px]  justify-center items-center';
+
+  const userSidebarLinks = [{ icon: Home, text: 'Home', href: '/home' }];
   const sidebarLinks = [
-    { icon: Home, text: 'Home', href: '/home' },
     { icon: Globe, text: 'Overview', href: '/overview' },
     { icon: Book, text: 'Tasks', href: '/tasks' },
   ];
+  const adminSidebarLinks = [{ icon: User, text: 'Users', href: '/users' }];
   const router = useRouter();
   const logoutHandler = async () => {
     router.push('/');
@@ -31,12 +46,22 @@ const Sidebar: React.FC<SidebarProps> = () => {
         <>
           <div>
             <h1 className="text-primary text-2xl font-bold mb-10">Taski</h1>
-            <SidebarLink Icon={Plus} text="New Project" href="/new-project" />
+            {isUser && (
+              <SidebarLink Icon={Plus} text="New Project" href="/new-project" />
+            )}
             <p className="mt-10 font-bold">Menu</p>
             <ul className="flex justify-center items-center flex-col gap-5">
+              {isUser &&
+                userSidebarLinks.map(({ icon: Icon, text, href }, i) => (
+                  <SidebarLink key={i} Icon={Icon} text={text} href={href} />
+                ))}
               {sidebarLinks.map(({ icon: Icon, text, href }, i) => (
                 <SidebarLink key={i} Icon={Icon} text={text} href={href} />
               ))}
+              {isAdmin &&
+                adminSidebarLinks.map(({ icon: Icon, text, href }, i) => (
+                  <SidebarLink key={i} Icon={Icon} text={text} href={href} />
+                ))}
             </ul>
             <div
               onClick={() => setIsOpen(false)}
