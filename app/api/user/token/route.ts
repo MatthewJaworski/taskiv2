@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   const accept = headers().get('Accept') as string;
   const body = await request.json();
 
-  const result = await fetch(`http://localhost:5025/api/user/refresh-token`, {
+  const result = await fetch(`${process.env.API_URL}/api/user/refresh-token`, {
     body: JSON.stringify(body),
     method: 'POST',
     headers: {

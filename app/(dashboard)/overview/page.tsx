@@ -18,14 +18,11 @@ const Home = async () => {
       })
     : ((await getAllProjects(token as string)) as { projects: TProject[] });
 
-  const userProjects = !isAdmin
-    ? projects.filter((project: TProject) => project.userId === id)
-    : projects;
 
   return (
     <Container>
       <h1 className="text-5xl font-semibold max-w-lg mb-4">All Projects</h1>
-      {userProjects.length ? (
+      {projects.length ? (
         <Overview projects={projects} />
       ) : (
         isUser && (

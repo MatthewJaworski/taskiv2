@@ -11,16 +11,21 @@ function filterProjectsByUser(projects: TProject[], userId: string) {
   });
 }
 const Page = async () => {
-  const { id } = (await getUserDataFromCookie()) as TTokenUser;
+  const { id, role } = (await getUserDataFromCookie()) as TTokenUser;
   const token = await getJWTFromCookie();
   const { projects } = (await getAllUserProjects(id, token!)) as {
     projects: TProject[];
   };
+  const isUser = role === 'User';
   const projectWhereUserIsAssigned = filterProjectsByUser(projects, id);
 
   return (
     <Container>
-      <h1 className="text-5xl font-semibold mb-4">Tasks assigned to You</h1>
+      {isUser ? (
+        <h1 className="text-5xl font-semibold mb-4">Tasks assigned to You</h1>
+      ) : (
+        <h1 className="text-5xl font-semibold mb-4">All Tasks</h1>
+      )}
       <Tasks projects={projectWhereUserIsAssigned} />
     </Container>
   );

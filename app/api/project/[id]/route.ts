@@ -7,7 +7,7 @@ export async function DELETE(
 ) {
   const id = params.id;
   const authorization = headers().get('Authorization');
-  const result = await fetch(`http://localhost:5025/api/projects/${id}`, {
+  const result = await fetch(`${process.env.API_URL}/api/projects/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: authorization || '',
@@ -28,7 +28,7 @@ export async function GET(
 ) {
   const id = params.id;
   const authorization = headers().get('Authorization');
-  const result = await fetch(`http://localhost:5025/api/projects/${id}`, {
+  const result = await fetch(`${process.env.API_URL}/api/projects/${id}`, {
     method: 'GET',
     headers: {
       Authorization: authorization || '',

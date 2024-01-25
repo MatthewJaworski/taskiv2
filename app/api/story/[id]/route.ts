@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const id = params.id;
   const authorization = headers().get('Authorization');
-  const result = await fetch(`http://localhost:5025/api/stories/${id}`, {
+  const result = await fetch(`${process.env.API_URL}/api/stories/${id}`, {
     method: 'GET',
     headers: {
       Authorization: authorization || '',
@@ -30,7 +30,7 @@ export async function PUT(
   const authorization = headersList.get('Authorization');
   const id = params.id;
 
-  const result = await fetch(`http://localhost:5025/api/stories/${id}`, {
+  const result = await fetch(`${process.env.API_URL}/api/stories/${id}`, {
     body: JSON.stringify(body),
     method: 'PUT',
     headers: {
@@ -42,8 +42,27 @@ export async function PUT(
   });
 
   const data = await result.json();
-  console.log(data, 'data');
+
   return new Response(JSON.stringify(data), {
     status: 201,
+  });
+}
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const id = params.id;
+  const headersList = headers();
+  const authorization = headersList.get('Authorization');
+  const result = await fetch(`${process.env.API_URL}/api/stories/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: authorization!,
+    },
+  });
+  const data = await result.json();
+
+  return new Response(JSON.stringify(data), {
+    status: 200,
   });
 }

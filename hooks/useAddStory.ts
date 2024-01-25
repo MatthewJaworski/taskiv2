@@ -11,7 +11,7 @@ interface IUseAddStory {
 }
 export const useAddStory = ({ userId, projectId, token }: IUseAddStory) => {
   const nameRef = useRef<HTMLInputElement | null>(null);
-  const descriptionRef = useRef<HTMLInputElement | null>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

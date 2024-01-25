@@ -9,7 +9,7 @@ export async function GET(
   const authorization = headersList.get('Authorization');
 
   const response = await fetch(
-    `http://localhost:5025/api/stories/project/${projectId}`,
+    `${process.env.API_URL}/api/stories/project/${projectId}`,
     {
       method: 'GET',
       headers: {
@@ -18,7 +18,7 @@ export async function GET(
       next: { tags: ['allStories'] },
     }
   );
-    
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

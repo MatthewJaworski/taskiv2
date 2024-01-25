@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const queryName = searchParams.get('name');
 
   const authorization = headers().get('Authorization');
-  const result = await fetch(`http://localhost:5025/api/user`, {
+  const result = await fetch(`${process.env.API_URL}/api/user`, {
     method: 'GET',
     headers: {
       Authorization: authorization || '',

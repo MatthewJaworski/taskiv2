@@ -9,7 +9,7 @@ import { TUser } from '@/types/user';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Select from '../Select/Select';
-
+import TextArea from '../TextArea/TextArea';
 export interface NewTaskProps {
   tags?: TTagKeys[];
   users?: TUser[];
@@ -30,6 +30,7 @@ const NewTask: React.FC<NewTaskProps> = ({
   const tagOptions = mapTagKeysToOptions(tags);
   const userOptions = mapUsersToOptions(users);
 
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -39,17 +40,16 @@ const NewTask: React.FC<NewTaskProps> = ({
             required
             id="name"
             name="Name"
-            placeholder={'Name'}
+            placeholder='Name'
             type="text"
             title="Name"
             error={false}
             ref={refs.nameRef}
           />
-          <Input
+          <TextArea
             id="description"
             name="Description"
-            placeholder={'Description'}
-            type="text"
+            placeholder='Description'
             title="Description"
             error={false}
             ref={refs.descriptionRef}

@@ -9,7 +9,7 @@ export async function GET(
   const authorization = headersList.get('Authorization');
 
   const response = await fetch(
-    `http://localhost:5025/api/projects/user/${userId}`,
+    `${process.env.API_URL}/api/projects/user/${userId}`,
     {
       method: 'GET',
       headers: {

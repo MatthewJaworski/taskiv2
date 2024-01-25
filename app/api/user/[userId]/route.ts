@@ -8,7 +8,7 @@ export async function GET(
   const headersList = headers();
   const authorization = headersList.get('Authorization');
 
-  const response = await fetch(`http://localhost:5025/api/user/${userId}`, {
+  const response = await fetch(`${process.env.API_URL}/api/user/${userId}`, {
     method: 'GET',
     headers: {
       Authorization: authorization || '',
@@ -21,7 +21,7 @@ export async function GET(
   }
 
   const result = await response.json();
-  console.log(result);
+  
   return new Response(JSON.stringify({ user: result }), {
     status: 200,
   });
@@ -35,7 +35,7 @@ export async function DELETE(
   const headersList = headers();
   const authorization = headersList.get('Authorization');
 
-  const response = await fetch(`http://localhost:5025/api/user/${userId}`, {
+  const response = await fetch(`${process.env.API_URL}/api/user/${userId}`, {
     method: 'DELETE',
     headers: {
       Authorization: authorization || '',

@@ -8,11 +8,11 @@ export async function POST(request: NextRequest) {
   const headersList = headers();
   const authorization = headersList.get('Authorization');
 
-  const requestBody= Object.fromEntries(
-    Object.entries(body).filter(([key, value]) => value !== "")
+  const requestBody = Object.fromEntries(
+    Object.entries(body).filter(([key, value]) => value !== '')
   );
-
-  const result = await fetch(`http://localhost:5025/api/stories`, {
+  
+  const result = await fetch(`${process.env.API_URL}/api/stories`, {
     body: JSON.stringify(requestBody),
     method: 'POST',
     headers: {
@@ -28,4 +28,3 @@ export async function POST(request: NextRequest) {
     status: 201,
   });
 }
-

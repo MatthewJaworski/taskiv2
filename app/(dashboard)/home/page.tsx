@@ -43,7 +43,7 @@ const Home = async () => {
         </Link>
       </Container>
       <Container className="mt-4">
-        <p className="text-2xl font-semibold">Stories assigned to You</p>
+        <p className="text-2xl font-semibold">Tasks assigned to You</p>
         <div className="grid grid-cols-auto-fit-s gap-2 mt-4">
           <CardDisplayer Card={StoryCard} elements={stories.slice(0, 4)} />
         </div>

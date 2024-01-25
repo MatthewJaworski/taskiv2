@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   const accept = headers().get('Accept') as string;
   const body = await request.json();
   const authorization = headers().get('Authorization');
-  const result = await fetch(`http://localhost:5025/api/user/project`, {
+  const result = await fetch(`${process.env.API_URL}/api/user/project`, {
     body: JSON.stringify(body),
     method: 'POST',
     headers: {
@@ -27,7 +27,7 @@ export async function DELETE(request: NextRequest) {
   const accept = headers().get('Accept') as string;
   const body = await request.json();
   const authorization = headers().get('Authorization');
-  const result = await fetch(`http://localhost:5025/api/user/project`, {
+  const result = await fetch(`${process.env.API_URL}/api/user/project`, {
     body: JSON.stringify(body),
     method: 'DELETE',
     headers: {

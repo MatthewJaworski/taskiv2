@@ -9,17 +9,20 @@ export async function GET(
   const queryName = searchParams.get('name');
   const id = params.id;
   const authorization = headers().get('Authorization');
-  const result = await fetch(`http://localhost:5025/api/projects/${id}/users`, {
-    method: 'GET',
-    headers: {
-      Authorization: authorization || '',
-    },
-    next: { tags: ['projectUsers'] },
-  });
+  const result = await fetch(
+    `${process.env.API_URL}/api/projects/${id}/users`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: authorization || '',
+      },
+      next: { tags: ['projectUsers'] },
+    }
+  );
 
   const data = await result.json();
   const regex = new RegExp(queryName || '', 'gi');
-  
+
   const filteredUsers =
     queryName !== ''
       ? data.filter(

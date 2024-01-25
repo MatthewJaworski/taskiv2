@@ -29,7 +29,7 @@ const textAreaClasses = cva(
   }
 );
 
-const wrapperClasses = cva(['flex', 'justify-start', 'w-full'], {
+const wrapperClasses = cva(['flex', 'justify-start', 'w-full', 'scrollbar'], {
   variants: {
     error: {
       true: ['bg-accent', 'hover:bg-accent/70'],

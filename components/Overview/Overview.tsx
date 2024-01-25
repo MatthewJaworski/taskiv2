@@ -14,7 +14,6 @@ const Overview = ({ projects }: IOverviewProps) => {
   const filteredProjects = projects.filter((project) =>
     project.name.toLowerCase().includes(filterText.toLowerCase())
   );
-
   return (
     <>
       <Container>

@@ -5,7 +5,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
   const authorization = headers().get('Authorization');
-  const result = await fetch(`http://localhost:5025/api/projects`, {
+  const result = await fetch(`${process.env.API_URL}/api/projects`, {
     method: 'GET',
     headers: {
       Authorization: authorization || '',
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
   const headersList = headers();
   const authorization = headersList.get('Authorization');
 
-  const result = await fetch(`http://localhost:5025/api/projects`, {
+  const result = await fetch(`${process.env.API_URL}/api/projects`, {
     body: JSON.stringify(body),
     method: 'POST',
     headers: {

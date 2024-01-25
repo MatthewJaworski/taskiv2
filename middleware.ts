@@ -1,6 +1,23 @@
 import { decodeJWT, getJWTFromCookie } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 
+export async function disablePathsForAdmin(request: NextRequest) {
+  const jwt = getJWTFromCookie();
+  const { data } = await decodeJWT(jwt);
+  const isAdmin = data.role === 'Admin';
+
+  if (
+    isAdmin &&
+    (request.nextUrl.pathname.startsWith('/home') ||
+      request.nextUrl.pathname.startsWith('/new-project'))
+  ) {
+    return NextResponse.redirect(
+      new URL('/overview', process.env.NEXT_PUBLIC_WEBSITE_URL)
+    );
+  }
+  return NextResponse.next();
+}
+
 export async function middleware(request: NextRequest) {
   if (
     request.nextUrl.pathname.startsWith('/sign-in') ||
@@ -14,7 +31,7 @@ export async function middleware(request: NextRequest) {
 
   if (!jwt) {
     return NextResponse.redirect(
-      new URL('/sign-in', process.env.NEXT_PUBLIC_URL)
+      new URL('/sign-in', process.env.NEXT_PUBLIC_WEBSITE_URL)
     );
   }
 
@@ -25,13 +42,19 @@ export async function middleware(request: NextRequest) {
       new URL('/sign-in', process.env.NEXT_PUBLIC_UR)
     );
   }
-  const response = NextResponse.next();
 
+  const response = NextResponse.next();
 
   response.cookies.set('tokenTaski', token, {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
   });
+  const adminResponse = await disablePathsForAdmin(request);
+
+  if (adminResponse.status === 307) {
+    return adminResponse;
+  }
+
   return response;
 }

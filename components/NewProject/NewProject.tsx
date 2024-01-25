@@ -4,11 +4,12 @@ import { text } from '@/constants/en';
 import { KEY_TAGS } from '@/constants/tags';
 import { createNewProject } from '@/lib/api';
 import { IprojectRequestBody } from '@/types/project';
+import { TResponse } from '@/types/response';
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
-import { TResponse } from '@/types/response';
+import TextArea from '../TextArea/TextArea';
 
 export interface NewProjectProps {
   token: string;
@@ -41,7 +42,7 @@ const NewProject: React.FC<NewProjectProps> = ({ token, userId }) => {
         }
       }
     });
-    const response = await createNewProject(requestBody, token) as TResponse;
+    const response = (await createNewProject(requestBody, token)) as TResponse;
 
     if (response.success) {
       revalidateAllProjects();
@@ -63,11 +64,10 @@ const NewProject: React.FC<NewProjectProps> = ({ token, userId }) => {
             title="Name"
             error={false}
           />
-          <Input
+          <TextArea
             id="description"
             name="Description"
             placeholder={placeholders.description}
-            type="text"
             title="Description"
             error={false}
           />

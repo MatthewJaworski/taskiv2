@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     typeId: body.typeId,
   } as Exclude<TCommentRequest, 'type'>;
   const result = await fetch(
-    `http://localhost:5025/api/comments/${body.type}`,
+    `${process.env.API_URL}/api/comments/${body.type}`,
     {
       body: JSON.stringify(requestBody),
       method: 'POST',

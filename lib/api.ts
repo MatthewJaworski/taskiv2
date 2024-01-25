@@ -24,7 +24,7 @@ const fetcher = async <T>({
   };
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
-  const res = await fetch(`http://localhost:3000${url}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WEBSITE_URL}${url}`, {
     method,
     body: body && JSON.stringify(body),
     headers,
@@ -146,10 +146,11 @@ export const updateStory = (
     token,
   });
 };
-export const deleteStory = (id: string) => {
+export const deleteStory = (id: string,token:string) => {
   return fetcher({
     url: `/api/story/${id}`,
     method: 'DELETE',
+    token,
   });
 };
 export const filterUsersForProject = ({
@@ -224,31 +225,31 @@ export const addComment = ({
     body: data,
   });
 };
-export const getAllUsers= (token: string) => {
+export const getAllUsers = (token: string) => {
   return fetcher({
     url: `/api/user`,
     method: 'GET',
     token,
   });
-}
-export const getAllUserData = (id:string,token: string) => {
+};
+export const getAllUserData = (id: string, token: string) => {
   return fetcher({
     url: `/api/user/${id}`,
     method: 'GET',
     token,
   });
-}
-export const deleteUser = (id:string,token: string) => {
+};
+export const deleteUser = (id: string, token: string) => {
   return fetcher({
     url: `/api/user/${id}`,
     method: 'DELETE',
     token,
   });
-}
+};
 export const getAllProjects = (token: string) => {
   return fetcher({
     url: `/api/project`,
     method: 'GET',
     token,
   });
-}
+};

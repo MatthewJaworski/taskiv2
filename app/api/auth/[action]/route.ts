@@ -10,10 +10,10 @@ export async function POST(
   const accept = headers().get('Accept') as string;
   const body = await request.json();
 
-  if(action==="register"){
-    body.role="User"
+  if (action === 'register') {
+    body.role = 'User';
   }
-  const result = await fetch(`http://localhost:5025/api/user/${action}`, {
+  const result = await fetch(`${process.env.API_URL}/api/user/${action}`, {
     body: JSON.stringify(body),
     method: 'POST',
     headers: {
@@ -34,7 +34,7 @@ export async function POST(
     }
     return res;
   }
-  
+
   return new Response(JSON.stringify(data), {
     status: 200,
   });

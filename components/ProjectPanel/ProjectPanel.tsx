@@ -25,8 +25,10 @@ const ProjectPanel = async ({
   stories,
 }: ProjectPanelProps) => {
   const { id: userId, role } = (await getUserDataFromCookie()) as TTokenUser;
+
   const isAdmin = role === 'Admin';
   const isUserOwner = userId === projectData.userId;
+
   return (
     <>
       <Container>
@@ -53,7 +55,7 @@ const ProjectPanel = async ({
         <Container className="grid gap-4 grid-cols-auto-fit-m mt-4">
           <NewTask
             token={token}
-            userId={projectData.userId}
+            userId={isAdmin ? projectData.userId : userId}
             tags={projectData.tags}
             projectId={projectData.id}
             users={projectData.users}

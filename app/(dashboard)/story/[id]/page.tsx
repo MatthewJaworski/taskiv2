@@ -1,5 +1,5 @@
-import Button from '@/components/Button/Button';
 import Container from '@/components/Container/Container';
+import DeleteTaskButton from '@/components/DeleteTaskButton/DeleteTaskButton';
 import { AssignedTo } from '@/components/Story/AssignedTo/AssignedTo';
 import CommentsSection from '@/components/Story/CommentsSection/CommentsSection';
 import Complete from '@/components/Story/Complete/Complete';
@@ -45,7 +45,7 @@ const StoryPage: NextPage<StoryPageProps> = async ({ params: { id } }) => {
           <Container>
             <p>Created: {formatDate(createDate)}</p>
             <p>
-              Competed:{' '}
+              Completed:{' '}
               {data.completeDate ? formatDate(completeDate!) : 'Not finished'}
             </p>
           </Container>
@@ -76,9 +76,7 @@ const StoryPage: NextPage<StoryPageProps> = async ({ params: { id } }) => {
           role={role}
         />
         <Container className="mt-4">
-          <Button className="w-full" intent="text">
-            Delete story
-          </Button>
+          <DeleteTaskButton id={id} token={token} />
         </Container>
       </Container>
     </>

@@ -13,7 +13,7 @@ export const decodeJWT = async (jwt: any) => {
   try {
     const result = await jwtVerify(
       jwt,
-      new TextEncoder().encode('P5BsNuJR8hgfAx7ap9ZkW3jmGnC6rMDe')
+      new TextEncoder().encode(process.env.JWT_SECRET)
     );
     payload = result.payload;
   } catch (error) {
@@ -22,13 +22,13 @@ export const decodeJWT = async (jwt: any) => {
     };
     const result = await jwtVerify(
       refreshedToken as string,
-      new TextEncoder().encode('P5BsNuJR8hgfAx7ap9ZkW3jmGnC6rMDe')
+      new TextEncoder().encode(process.env.JWT_SECRET)
     );
     newToken = refreshedToken;
 
     payload = result.payload;
   }
-  
+
   return { data: payload, token: newToken };
 };
 export const getUserIdFromCookie = async () => {
