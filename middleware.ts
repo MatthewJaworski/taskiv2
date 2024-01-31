@@ -9,7 +9,8 @@ export async function disablePathsForAdmin(request: NextRequest) {
   if (
     isAdmin &&
     (request.nextUrl.pathname.startsWith('/home') ||
-      request.nextUrl.pathname.startsWith('/new-project'))
+      request.nextUrl.pathname.startsWith('/new-project') ||
+      request.nextUrl.pathname.startsWith('/tasks'))
   ) {
     return NextResponse.redirect(
       new URL('/overview', process.env.NEXT_PUBLIC_WEBSITE_URL)

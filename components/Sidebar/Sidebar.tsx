@@ -27,11 +27,11 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
     ? ' max-w-[300px] justify-between bg-black/20  px-6 py-10'
     : 'max-w-[0px]  justify-center items-center';
 
-  const userSidebarLinks = [{ icon: Home, text: 'Home', href: '/home' }];
-  const sidebarLinks = [
-    { icon: Globe, text: 'Overview', href: '/overview' },
+  const userSidebarLinks = [
+    { icon: Home, text: 'Home', href: '/home' },
     { icon: Book, text: 'Tasks', href: '/tasks' },
   ];
+  const sidebarLinks = [{ icon: Globe, text: 'Overview', href: '/overview' }];
   const adminSidebarLinks = [{ icon: User, text: 'Users', href: '/users' }];
   const router = useRouter();
   const logoutHandler = async () => {

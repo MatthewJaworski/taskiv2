@@ -10,9 +10,10 @@ import StoryCard from '../StoryCard/StoryCard';
 
 interface ITasksProps {
   projects: TProject[];
+  userId: string;
 }
 
-const Tasks = ({ projects }: ITasksProps) => {
+const Tasks = ({ projects, userId }: ITasksProps) => {
   const [filterProjectName, setFilterProjectName] = useState<string>('');
   const [filterTaskName, setFilterTaskName] = useState<string>('');
 
@@ -22,8 +23,10 @@ const Tasks = ({ projects }: ITasksProps) => {
     )
     .map((project) => ({
       ...project,
-      stories: project.stories.filter((story) =>
-        story.name.toLowerCase().includes(filterTaskName.toLowerCase())
+      stories: project.stories.filter(
+        (story) =>
+          story.name.toLowerCase().includes(filterTaskName.toLowerCase()) &&
+          (story.assignedTo.id == userId )
       ),
     }))
     .filter((project) => project.stories.length > 0);
@@ -51,8 +54,10 @@ const Tasks = ({ projects }: ITasksProps) => {
             <Container key={project.id} className="mt-4">
               <div className="grid grid-cols-auto-fit-s">
                 <p className="text-2xl font-semibold">{project.name}</p>
-                <Link className='m-auto w-full' href={`/project/${project.id}`}>
-                  <Button className='w-full' intent="secondary">Open project</Button>
+                <Link className="m-auto w-full" href={`/project/${project.id}`}>
+                  <Button className="w-full" intent="secondary">
+                    Open project
+                  </Button>
                 </Link>
               </div>
               <Container className="mt-4 grid grid-cols-auto-fit-s">
@@ -61,9 +66,7 @@ const Tasks = ({ projects }: ITasksProps) => {
             </Container>
           ))
         ) : (
-          <p className="text-2xl text-center font-semibold">
-            No tasks found
-          </p>
+          <p className="text-2xl text-center font-semibold">No tasks found</p>
         )}
       </Container>
     </>
