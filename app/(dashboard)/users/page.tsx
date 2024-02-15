@@ -1,6 +1,6 @@
-import Container from '@/components/Container/Container';
-import { OptionType } from '@/components/Search/Search';
-import Users from '@/components/Users/Users';
+import Container from '@/components/common/Container/Container';
+import { OptionType } from '@/components/common/Search/Search';
+import Users from '@/components/screens/Users/Users';
 import { getAllUsers } from '@/lib/api';
 import { getJWTFromCookie } from '@/lib/auth';
 

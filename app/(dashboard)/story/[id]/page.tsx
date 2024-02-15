@@ -1,8 +1,8 @@
-import Container from '@/components/Container/Container';
-import DeleteTaskButton from '@/components/DeleteTaskButton/DeleteTaskButton';
-import { AssignedTo } from '@/components/Story/AssignedTo/AssignedTo';
-import CommentsSection from '@/components/Story/CommentsSection/CommentsSection';
-import Complete from '@/components/Story/Complete/Complete';
+import Container from '@/components/common/Container/Container';
+import DeleteTaskButton from '@/components/screens/Story/DeleteTaskButton/DeleteTaskButton';
+import { AssignedTo } from '@/components/screens/Story/AssignedTo/AssignedTo';
+import CommentsSection from '@/components/screens/Story/CommentsSection/CommentsSection';
+import Complete from '@/components/screens/Story/Complete/Complete';
 import { getStory } from '@/lib/api';
 import { getJWTFromCookie, getUserDataFromCookie } from '@/lib/auth';
 import { formatDate } from '@/lib/time';

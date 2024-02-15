@@ -1,6 +1,6 @@
-import Button from '@/components/Button/Button';
-import Container from '@/components/Container/Container';
-import Overview from '@/components/Overview/Overview';
+import Button from '@/components/common/Button/Button';
+import Container from '@/components/common/Container/Container';
+import Overview from '@/components/screens/Overview/Overview';
 import { getAllProjects, getAllUserProjects } from '@/lib/api';
 import { getJWTFromCookie, getUserDataFromCookie } from '@/lib/auth';
 import { TTokenUser } from '@/types/auth';
@@ -17,7 +17,6 @@ const Home = async () => {
         projects: TProject[];
       })
     : ((await getAllProjects(token as string)) as { projects: TProject[] });
-
 
   return (
     <Container>

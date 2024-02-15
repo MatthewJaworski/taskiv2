@@ -1,5 +1,5 @@
-import Container from '@/components/Container/Container';
-import Tasks from '@/components/Tasks/Tasks';
+import Container from '@/components/common/Container/Container';
+import Tasks from '@/components/screens/Tasks/Tasks';
 import { getAllUserProjects } from '@/lib/api';
 import { getJWTFromCookie, getUserDataFromCookie } from '@/lib/auth';
 import { TTokenUser } from '@/types/auth';

@@ -1,4 +1,4 @@
-import Button from '@/components/Button/Button';
+import Button from '@/components/common/Button/Button';
 import { text } from '@/constants/en';
 import { getUserIdFromCookie } from '@/lib/auth';
 import Link from 'next/link';
@@ -7,6 +7,7 @@ const Home = async () => {
   const userId = await getUserIdFromCookie();
 
   const href = userId ? '/home' : '/sign-in';
+  
   const {
     welcomePage: { description, infoButton, loginButton, title },
   } = text;
@@ -20,7 +21,6 @@ const Home = async () => {
           <Link href={href}>
             <Button size="large">{loginButton}</Button>
           </Link>
-
           <Link href="/info">
             <Button size="large" intent="secondary">
               {infoButton}

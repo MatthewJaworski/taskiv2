@@ -1,7 +1,7 @@
 'use client'; // Error components must be Client Components
 
-import Button from '@/components/Button/Button';
-import Container from '@/components/Container/Container';
+import Button from '@/components/common/Button/Button';
+import Container from '@/components/common/Container/Container';
 import { useRouter } from 'next/navigation';
 export default function Error({
   error,
@@ -16,7 +16,9 @@ export default function Error({
   };
   return (
     <Container className="flex justify-center flex-col items-center">
-      <h2 className="text-5xl font-semibold text-center">Something went wrong!</h2>
+      <h2 className="text-5xl font-semibold text-center">
+        Something went wrong!
+      </h2>
       <Button intent="secondary" className="mt-4" onClick={clickHandler}>
         Go back
       </Button>

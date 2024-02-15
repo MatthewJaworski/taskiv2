@@ -1,5 +1,5 @@
-import Container from '@/components/Container/Container';
-import Sidebar from '@/components/Sidebar/Sidebar';
+import Container from '@/components/common/Container/Container';
+import Sidebar from '@/components/screens/Sidebar/Sidebar';
 import { getUserDataFromCookie } from '@/lib/auth';
 import '@/styles/globals.css';
 import { TTokenUser } from '@/types/auth';

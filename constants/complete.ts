@@ -1,4 +1,4 @@
-import { OptionType } from '@/components/Select/Select';
+import { OptionType } from '@/components/common/Select/Select';
 
 export const IS_COMPLETE_OPTIONS: OptionType[] = [
   {

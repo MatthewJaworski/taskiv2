@@ -1,8 +1,8 @@
-import Button from '@/components/Button/Button';
-import CardDisplayer from '@/components/CardDisplayer/CardDisplayer';
-import Container from '@/components/Container/Container';
-import ProjectCard from '@/components/ProjectCard/ProjectCard';
-import StoryCard from '@/components/StoryCard/StoryCard';
+import ProjectCard from '@/components/cards/ProjectCard/ProjectCard';
+import StoryCard from '@/components/cards/StoryCard/StoryCard';
+import Button from '@/components/common/Button/Button';
+import CardDisplayer from '@/components/common/CardDisplayer/CardDisplayer';
+import Container from '@/components/common/Container/Container';
 import { getAllUserProjects, getAllUserStories } from '@/lib/api';
 import { getJWTFromCookie, getUserDataFromCookie } from '@/lib/auth';
 import { TTokenUser } from '@/types/auth';

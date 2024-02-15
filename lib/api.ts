@@ -1,4 +1,4 @@
-import { OptionType } from '@/components/Search/Search';
+import { OptionType } from '@/components/common/Search/Search';
 import { TLoginDto, TRegisterUserDto } from '@/types/auth';
 import { TCommentRequest } from '@/types/comment';
 import { CreateProjectDto, UpdateProjectDto } from '@/types/projects';
@@ -146,7 +146,7 @@ export const updateStory = (
     token,
   });
 };
-export const deleteStory = (id: string,token:string) => {
+export const deleteStory = (id: string, token: string) => {
   return fetcher({
     url: `/api/story/${id}`,
     method: 'DELETE',

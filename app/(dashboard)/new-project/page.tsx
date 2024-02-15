@@ -1,5 +1,5 @@
-import Container from '@/components/Container/Container';
-import NewProject from '@/components/NewProject/NewProject';
+import Container from '@/components/common/Container/Container';
+import NewProject from '@/components/screens/NewProject/NewProject';
 import { getJWTFromCookie, getUserIdFromCookie } from '@/lib/auth';
 
 const Home = async () => {
