@@ -26,7 +26,7 @@ const wrapperClasses = cva(['flex', 'justify-start', 'w-full'], {
   },
 });
 
-interface SelectProps extends VariantProps<typeof wrapperClasses> {
+export interface ISelectProps extends VariantProps<typeof wrapperClasses> {
   options?: OptionType[];
   defaultValue?: OptionType;
   onChange?: (option: OptionType | null) => void;
@@ -42,7 +42,7 @@ const customComponents = {
   NoOptionsMessage,
 };
 
-const Search: React.FC<SelectProps> = ({
+const Search: React.FC<ISelectProps> = ({
   options,
   defaultValue,
   onChange,

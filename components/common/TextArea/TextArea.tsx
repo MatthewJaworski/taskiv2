@@ -47,7 +47,7 @@ const wrapperClasses = cva(['flex', 'justify-start', 'w-full', 'scrollbar'], {
   },
 });
 
-export interface TextAreaProps
+export interface ITextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     VariantProps<typeof textAreaClasses>,
     VariantProps<typeof wrapperClasses> {
@@ -55,7 +55,7 @@ export interface TextAreaProps
   errorMessage?: string;
 }
 
-const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
   (
     { name, className, id, labelPosition, error, errorMessage, ...props },
     ref

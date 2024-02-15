@@ -1,6 +1,6 @@
 import Container from '../Container/Container';
 
-interface ICommentProps {
+export interface ICommentProps {
   contnet: string;
   creationDate: string;
   userName: string;
